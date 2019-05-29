@@ -1,0 +1,25 @@
+{
+  "name": "webpack-source",
+  "version": "1.0.0",
+  "description": "example basic setup of webpack with source mapping for error tracing",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jinjagit/webpack-source.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jinjagit/webpack-source/issues"
+  },
+  "homepage": "https://github.com/jinjagit/webpack-source#readme",
+  "devDependencies": {
+    "webpack": "^4.32.2",
+    "webpack-cli": "^3.3.2"
+  }
+}

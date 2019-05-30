@@ -1,19 +1,35 @@
-import { aModule } from './aModule'
+import { dummyContent } from './dummyContent'
 import { setDimensions } from './setDimensions'
 import { todoFactory } from './todoFactory'
 import { uniqueId } from './uniqueId'
+import { todosIndex } from './todosIndex'
 
-aModule();
+//dummyContent();
 
 let todos = [];
 
-const todo1 = todoFactory(uniqueId(), 'do laundry', 'description here', 'high', 'regular stuff');
-const todo2 = todoFactory(uniqueId(), 'wash car', 'description here', 'medium', 'regular stuff');
-todo1.output();
-todo2.output();
+// create some example todos and output their properties:
 
-todo1.setTitle('NEW title');
-todo1.output();
+let todosInput = [
+  { title: 'do laundry', description: 'remember jeans', priority: 'high',
+    category: 'regular stuff' },
+  { title: 'wash car', description: 'nil', priority: 'low',
+    category: 'regular stuff' },
+  { title: 'buy beer', description: 'Kronenberg', priority: 'medium',
+    category: 'regular stuff' }
+];
 
-todos.push(todoFactory(uniqueId(), 'unNamed object', 'description here', 'medium', 'some category'));
-console.log(todos[0].id);
+for (let i = 0; i < todosInput.length; i++) {
+  todos.push(
+    todoFactory(uniqueId(), todosInput[i].title, todosInput[i].description,
+    todosInput[i].priority, todosInput[i].category
+  ));
+}
+
+for (let i = 0; i < todosInput.length; i++) {
+  todos[i].output();
+}
+
+// display todos on page:
+
+todosIndex(todos, setDimensions.fontSize, setDimensions.rowH);

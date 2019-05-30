@@ -1,6 +1,4 @@
-const aModule = () => {
-  let test = document.getElementById('test');
-  test.innerHTML = 'Hello from aModule';
+const dummyContent = () => {
 
   let content = document.getElementById('content');
 
@@ -13,4 +11,4 @@ const aModule = () => {
 
 };
 
-export { aModule }
+export { dummyContent }

@@ -18,8 +18,8 @@ const setDimensions = (() => {
   let fontSize = '30px';
 
   if (mobile == true && screen.width < screen.height) {
-    rowH = '100px'; // mobile-portrait
-    fontSize = '60px';
+    rowH = '50px'; // mobile-portrait
+    fontSize = '30px';
   };
 
   let body = document.getElementsByTagName('body')[0];
@@ -41,8 +41,8 @@ const setDimensions = (() => {
       setScroll();
       setCommonDimensions();
     } else if (rowH == '50px' && screen.width < screen.height) {
-      rowH = '100px';
-      fontSize = '60px';
+      rowH = '50px';
+      fontSize = '30px';
       setScroll();
       setCommonDimensions();
     }

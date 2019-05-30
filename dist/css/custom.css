@@ -1,0 +1,53 @@
+:root {
+  --pale-gold: #EEE8AA;
+  --dark-gold: #5e5b41;
+  --dark-red: #130907;
+  --mid-red: #490900;
+}
+
+body {
+}
+
+body, input, textarea, button {
+  font-family: 'Ubuntu Mono', Courier, monospace;
+}
+
+p {
+  font-size: 1.5em;
+}
+
+#content {
+  width: 100%;
+  max-width: 800px;
+  margin: auto;
+  background-color: var(--pale-gold);
+}
+
+#navbar {
+  background-color: #333; /* Black background color */
+  position: fixed; /* Make it stick/fixed */
+  top: 0; /* Stay on top */
+  width: 100%; /* Full width */
+  transition: top 0.3s; /* Transition effect when sliding down (and up) */
+}
+
+/* Style the navbar links */
+#navbar a {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  text-decoration: none;
+}
+
+#navbar a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+#navText {
+  display: block;
+  color: white;
+  text-align: center;
+}

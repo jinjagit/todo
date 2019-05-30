@@ -2,7 +2,15 @@ const aModule = () => {
   let test = document.getElementById('test');
   test.innerHTML = 'Hello from aModule';
 
-  x = 6; // intentional error for testing (seting undeclared var)
+  let content = document.getElementById('content');
+
+  for(let i = 0; i < 70; i++) {
+    const para = document.createElement('p');
+    para.innerHTML = "placeholder content";
+    para.style.textAlign = "center";
+    content.appendChild(para);
+  }
+
 };
 
 export { aModule }

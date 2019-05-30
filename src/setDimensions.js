@@ -14,7 +14,7 @@
 const setDimensions = (() => {
   let mobile = false;
   if (screen.width < 801) { mobile = true; }
-  let rowH = 50;
+  let rowH = '50px';
   let fontSize = '30px';
 
   if (mobile == true && screen.width < screen.height) {

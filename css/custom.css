@@ -20,6 +20,10 @@ h1 {
   font-size: 30px;
 }
 
+h2 {
+  font-size: 24px;
+}
+
 #content {
   width: 100%;
   max-width: 800px;
@@ -59,6 +63,6 @@ h1 {
 }
 
 .minTodoDiv {
-  height: 40px;
-  line-height: 40px;
+  height: 32px;
+  line-height: 32px;
 }

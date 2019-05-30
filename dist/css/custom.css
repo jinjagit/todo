@@ -16,11 +16,15 @@ p {
   font-size: 1.5em;
 }
 
+h1 {
+  font-size: 30px;
+}
+
 #content {
   width: 100%;
   max-width: 800px;
-  margin: auto;
-  background-color: var(--pale-gold);
+  margin: 50px auto;
+  /* background-color: var(--pale-gold); */
 }
 
 #navbar {
@@ -28,6 +32,8 @@ p {
   position: fixed; /* Make it stick/fixed */
   top: 0; /* Stay on top */
   width: 100%; /* Full width */
+  height: 50px;
+  line-height: 50px;
   transition: top 0.3s; /* Transition effect when sliding down (and up) */
 }
 
@@ -50,4 +56,9 @@ p {
   display: block;
   color: white;
   text-align: center;
+}
+
+.minTodoDiv {
+  height: 40px;
+  line-height: 40px;
 }

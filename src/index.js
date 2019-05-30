@@ -1,10 +1,8 @@
 import { dummyContent } from './dummyContent'
-import { setDimensions } from './setDimensions'
+import { setScroll } from './setScroll'
 import { todoFactory } from './todoFactory'
 import { uniqueId } from './uniqueId'
 import { todosIndex } from './todosIndex'
-
-//dummyContent();
 
 let todos = [];
 
@@ -32,4 +30,9 @@ for (let i = 0; i < todosInput.length; i++) {
 
 // display todos on page:
 
-todosIndex(todos, setDimensions.fontSize, setDimensions.rowH);
+todosIndex(todos);
+
+
+// add placeholder content, for testing of navbar hide/reveal on scroll
+
+dummyContent();

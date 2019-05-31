@@ -99,6 +99,11 @@ img {
   background-color: #bbb;
 }
 
+#deleted {
+  background: url('../img/tick.jpg');
+  background-size: contain;
+}
+
 #newTodo {
   float: left;
   display: block;

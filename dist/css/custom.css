@@ -117,3 +117,14 @@ img {
 #plusSign:hover {
   color: black;
 }
+
+#topDiv {
+  height: 50px;
+  width: 100%;
+  line-height: 50px;
+}
+
+#heading {
+  float: none;
+  text-align: center;
+}

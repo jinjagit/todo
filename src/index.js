@@ -48,7 +48,7 @@ logTodos();
 
 // display todos on page and add event relevant listeners:
 
-todosIndex(todos);
+todosIndex(todos, 'All todo items');
 addEvents();
 
 

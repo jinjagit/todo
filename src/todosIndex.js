@@ -1,5 +1,12 @@
-const todosIndex = (todos) => {
+const todosIndex = (todos, project) => {
   let content = document.getElementById('content');
+  let topDiv = document.createElement('div');
+  topDiv.id = 'topDiv';
+  let heading = document.createElement('h2');
+  heading.innerHTML = `${project}:`;
+  heading.id = 'heading';
+  topDiv.appendChild(heading);
+  content.appendChild(topDiv);
 
   for(let i = 0; i < todos.length; i++) {
     let div = document.createElement('div');
@@ -14,6 +21,7 @@ const todosIndex = (todos) => {
     div.appendChild(completed);
     div.appendChild(title);
   }
+
   let newTodo = document.createElement('div');
   newTodo.id = 'newTodo';
   let plusSign = document.createElement('p');

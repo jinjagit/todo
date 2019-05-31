@@ -4,9 +4,10 @@ const todosIndex = (todos) => {
   for(let i = 0; i < todos.length; i++) {
     let div = document.createElement('div');
     div.classList.add('minTodoDiv');
+    div.id = `${todos[i].id}`;
     let completed = document.createElement('div');
     completed.classList.add('completed');
-
+    completed.id = `delete_${todos[i].id}`;
     let title = document.createElement('h2');
     title.innerHTML = todos[i].title;
     content.appendChild(div);

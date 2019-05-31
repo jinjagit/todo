@@ -87,7 +87,7 @@ img {
 }
 
 .completed:hover {
-  background: url('../img/tick.png');
+  background: url('../img/tick_mask.png');
   background-size: contain;
   background-color: #bbb;
 }

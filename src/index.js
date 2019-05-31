@@ -10,13 +10,13 @@ function addEvents() {
     deletions[i].addEventListener("click", function() {
       let id = this.id.slice(7);
       let checkBox = document.getElementById(this.id);
-      checkBox.style.backgroundColor = '#000';
+      checkBox.style.background = "url('../dist/img/tick.jpg')";
+      checkBox.style.backgroundSize = 'contain';
       setTimeout(function() {
-        checkBox.style.backgroundColor = '#fff';
         todos.splice(todos.indexOf(todos.find(e => e.id == id)), 1);
         let todoDiv = document.getElementById(id);
         todoDiv.parentNode.removeChild(todoDiv);
-      }, 1000);
+      }, 300);
     });
   }
 }

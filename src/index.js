@@ -12,6 +12,9 @@ function addEvents() {
       todos = todoDelete(todos, this.id);
     });
   }
+  document.getElementById('plusSign').addEventListener("click", function() {
+    console.log('clicked +');
+  });
 }
 
 function logTodos() {

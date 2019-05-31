@@ -1,22 +1,15 @@
 import { dummyContent } from './dummyContent'
 import { setScroll } from './setScroll'
-import { todoFactory } from './todoFactory'
 import { uniqueId } from './uniqueId'
+import { todoFactory } from './todoFactory'
 import { todosIndex } from './todosIndex'
+import { todoDelete } from './todoDelete'
 
 function addEvents() {
-  let deletions = document.getElementsByClassName('completed');
-  for (let i = 0; i < deletions.length; i++) {
-    deletions[i].addEventListener("click", function() {
-      let id = this.id.slice(7);
-      let checkBox = document.getElementById(this.id);
-      checkBox.style.background = "url('../dist/img/tick.jpg')";
-      checkBox.style.backgroundSize = 'contain';
-      setTimeout(function() {
-        todos.splice(todos.indexOf(todos.find(e => e.id == id)), 1);
-        let todoDiv = document.getElementById(id);
-        todoDiv.parentNode.removeChild(todoDiv);
-      }, 300);
+  let deleteTodos = document.getElementsByClassName('completed');
+  for (let i = 0; i < deleteTodos.length; i++) {
+    deleteTodos[i].addEventListener("click", function() {
+      todos = todoDelete(todos, this.id);
     });
   }
 }
@@ -59,4 +52,4 @@ addEvents();
 
 // add placeholder content, for testing of navbar hide/reveal on scroll
 
-dummyContent();
+//dummyContent();

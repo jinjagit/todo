@@ -91,3 +91,17 @@ img {
   background-size: contain;
   background-color: #bbb;
 }
+
+#newTodo {
+  float: left;
+  display: block;
+  height: 26px;
+  width: 26px;
+  line-height: 24px;
+  margin: 1px 10px 1px 10px;
+}
+
+#plusSign {
+  font-size: 40px;
+  text-align: center;
+}

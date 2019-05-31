@@ -14,6 +14,13 @@ const todosIndex = (todos) => {
     div.appendChild(completed);
     div.appendChild(title);
   }
+  let newTodo = document.createElement('div');
+  newTodo.id = 'newTodo';
+  let plusSign = document.createElement('p');
+  plusSign.id = 'plusSign';
+  plusSign.innerHTML = '+';
+  newTodo.appendChild(plusSign);
+  content.appendChild(newTodo);
 };
 
 export { todosIndex }

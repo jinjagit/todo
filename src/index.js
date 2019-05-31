@@ -10,17 +10,17 @@ let todos = [];
 
 let todosInput = [
   { title: 'do laundry', description: 'remember jeans', priority: 'high',
-    category: 'regular stuff' },
+    project: 'regular stuff' },
   { title: 'wash car', description: 'nil', priority: 'low',
-    category: 'regular stuff' },
+    project: 'regular stuff' },
   { title: 'buy beer', description: 'Kronenberg', priority: 'medium',
-    category: 'regular stuff' }
+    project: 'regular stuff' }
 ];
 
 for (let i = 0; i < todosInput.length; i++) {
   todos.push(
     todoFactory(uniqueId(), todosInput[i].title, todosInput[i].description,
-    todosInput[i].priority, todosInput[i].category
+    todosInput[i].priority, todosInput[i].project
   ));
 }
 

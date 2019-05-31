@@ -26,6 +26,11 @@ h2 {
   font-size: 24px;
 }
 
+img {
+  height: 100%;
+  width: 100%;
+}
+
 #content {
   width: 100%;
   max-width: 800px;
@@ -79,4 +84,10 @@ h2 {
   border-width: 2px;
   border-radius: 5px;
   margin: 1px 10px 1px 10px;
+}
+
+.completed:hover {
+  background: url('../img/tick.png');
+  background-size: contain;
+  background-color: #bbb;
 }

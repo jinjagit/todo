@@ -9,9 +9,14 @@ function addEvents() {
   for (let i = 0; i < deletions.length; i++) {
     deletions[i].addEventListener("click", function() {
       let id = this.id.slice(7);
-      todos.splice(todos.indexOf(todos.find(e => e.id == id)), 1);
-      let todoDiv = document.getElementById(id);
-      todoDiv.parentNode.removeChild(todoDiv);
+      let checkBox = document.getElementById(this.id);
+      checkBox.style.backgroundColor = '#000';
+      setTimeout(function() {
+        checkBox.style.backgroundColor = '#fff';
+        todos.splice(todos.indexOf(todos.find(e => e.id == id)), 1);
+        let todoDiv = document.getElementById(id);
+        todoDiv.parentNode.removeChild(todoDiv);
+      }, 1000);
     });
   }
 }

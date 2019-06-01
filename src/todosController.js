@@ -1,23 +1,23 @@
-import { data } from './data'
+import { todoModel } from './todoModel'
 import { todosRender } from './todosRender'
 
 const todosController = (() => {
 
   const index = (project) => {
     // Insert filter of todos by project name
-    
-    todosRender.index(data.todos, project);
 
-    data.logTodos(); // DEBUG
+    todosRender.index(todoModel.todos, project);
+
+    todoModel.logTodos(); // DEBUG
   };
 
   const destroy = (thisId) => {
     let id = thisId.slice(7);
-    data.deleteTodo(id);
+    todoModel.deleteTodo(id);
 
     // DEBUG:
     setTimeout(function() {
-      data.logTodos();
+      todoModel.logTodos();
     }, 500);
   };
 

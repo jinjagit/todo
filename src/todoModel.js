@@ -1,4 +1,4 @@
-const data = (() => {
+const todoModel = (() => {
 
   let todos = [];
 
@@ -58,4 +58,4 @@ const data = (() => {
 
 })();
 
-export { data }
+export { todoModel }

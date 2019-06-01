@@ -22,6 +22,10 @@ const appRender = (() => {
   const placeholderContent = () => {
     let content = document.getElementById('content');
 
+    let spacer = document.createElement('div');
+    spacer.style.height = '30px';
+    content.appendChild(spacer);
+
     for(let i = 0; i < 70; i++) {
       const para = document.createElement('p');
       para.innerHTML = "placeholder content";

@@ -102,6 +102,7 @@ img {
 #deleted {
   background: url('../img/tick.jpg');
   background-size: contain;
+  transition: 0.3s;
 }
 
 #addNew {

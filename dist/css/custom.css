@@ -40,7 +40,7 @@ img {
 
 #content {
   width: 100%;
-  max-width: 800px;
+  max-width: 480px;
   margin: 50px auto;
   /* background-color: var(--pale-gold); */
 }

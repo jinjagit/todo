@@ -104,7 +104,7 @@ img {
   background-size: contain;
 }
 
-#newTodo {
+#addNew {
   float: left;
   display: block;
   height: 26px;

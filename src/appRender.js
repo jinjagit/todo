@@ -1,24 +1,34 @@
 const appRender = (() => {
 
-  (() => { // set navbar srcoll behaviour (hide / reveal):
-    let navbar = document.getElementById('navbar');
-    let content = document.getElementById('content');
+  // set styling / behaviours common to all views:
+  let navbar = document.getElementById('navbar');
+  let content = document.getElementById('content');
 
-    var prevScrollpos = window.pageYOffset;
-    window.onscroll = function() {
-      var currentScrollPos = window.pageYOffset;
-      if (prevScrollpos > currentScrollPos) {
-        navbar.style.top = "0";
-        content.style.marginTop = '50px';
-      } else {
-        navbar.style.top = '-50px';
-        content.style.marginTop = '0px';
-      }
-      prevScrollpos = currentScrollPos;
+  // set navbar scroll behaviour (hide / reveal):
+  var prevScrollpos = window.pageYOffset;
+  window.onscroll = function() {
+    var currentScrollPos = window.pageYOffset;
+    if (prevScrollpos > currentScrollPos) {
+      navbar.style.top = "0";
+      content.style.marginTop = '50px';
+    } else {
+      navbar.style.top = '-50px';
+      content.style.marginTop = '0px';
     }
-  })();
+    prevScrollpos = currentScrollPos;
+  }
 
-  (() => { // change some element dimensions on start / resize, as needed:
+  // declare functions to common to todosRender and projectsRender modules:
+
+  const clearContent = () => {
+    while (content.firstChild) {
+        content.removeChild(content.firstChild);
+    }
+  };
+
+  // ----------- extras -----------------
+
+  (() => { // Resize: UNUSED
     let navDiv = document.getElementById('navDiv');
 
       //let titleDiv = document.getElementById('titleDiv');
@@ -29,8 +39,8 @@ const appRender = (() => {
       }
     };
 
-    resize();
-    document.body.onresize = function(){ resize(); };
+    //resize();
+    //document.body.onresize = function(){ resize(); };
   })();
 
   // DEBUG: create content taller than page to test scroll effects
@@ -51,7 +61,7 @@ const appRender = (() => {
     window.dispatchEvent(new Event('resize'));
   };
 
-  return { placeholderContent };
+  return { clearContent, placeholderContent };
 
 })();
 

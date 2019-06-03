@@ -63,7 +63,7 @@ const model = (() => {
     }
   };
 
-  return { todos, createExamples, deleteTodo, logTodos };
+  return { todos, projects, createExamples, deleteTodo, logTodos };
 
 })();
 

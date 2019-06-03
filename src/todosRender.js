@@ -1,25 +1,25 @@
+import { appRender } from './appRender'
 import { todosController } from './todosController'
+import { projectsController } from './projectsController'
 
 const todosRender = (() => {
 
   const index = (todos, project) => {
-    let navMsg = document.getElementById('navMsg');
-    navMsg.innerHTML = project;
-
+    appRender.clearContent();
     let content = document.getElementById('content');
 
     for(let i = 0; i < todos.length; i++) {
       let div = document.createElement('div');
-      div.classList.add('minTodoDiv');
+      div.classList.add('itemDiv');
       div.classList.add(`${todos[i].priority}Div`);
       div.id = `${todos[i].id}`;
       div.addEventListener("click", function() {
         console.log(`clicked div: ${this.id}`);
       });
-      let completed = document.createElement('div');
-      completed.classList.add('completed');
-      completed.id = `delete_${todos[i].id}`;
-      completed.addEventListener("click", function(e) {
+      let checkbox = document.createElement('div');
+      checkbox.classList.add('checkbox');
+      checkbox.id = `delete_${todos[i].id}`;
+      checkbox.addEventListener("click", function(e) {
         e.stopPropagation();
         todosController.destroy(this.id);
         removeTodo(this.id);
@@ -27,7 +27,7 @@ const todosRender = (() => {
       let title = document.createElement('h2');
       title.innerHTML = todos[i].title;
       content.appendChild(div);
-      div.appendChild(completed);
+      div.appendChild(checkbox);
       div.appendChild(title);
     }
 
@@ -41,6 +41,14 @@ const todosRender = (() => {
     plusSign.innerHTML = '+';
     addNew.appendChild(plusSign);
     content.appendChild(addNew);
+
+    // set navbar content & link to projects index
+    let navMsg = document.getElementById('navMsg');
+    navMsg.innerHTML = project;
+    let projectsBtn = document.getElementById('projectsBtn');
+    projectsBtn.addEventListener("click", function() {
+      projectsController.index();
+    });
   };
 
   // private:

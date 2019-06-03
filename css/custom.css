@@ -99,7 +99,7 @@ img {
   width: calc(100% - 34px);
   height: 32px;
   line-height: 32px;
-  box-shadow: inset 0 3px 5px #000000;
+  box-shadow: inset 0 2px 5px #333;
   border-radius: 10px 0 0 10px;
   float: left;
 }
@@ -108,32 +108,32 @@ img {
   text-align: center;
 }
 
-#catBtn {
+#projectsBtn {
   display: block;
   width: 32px;
   height: 32px;
   border-style: solid;
   border-left-width: 2px;
   border-radius: 0 10px 10px 0;
-  box-shadow: inset 0 3px 5px #000000;
+  box-shadow: inset 0 2px 5px #333;
   float: right;
   background: url('../img/folders_mask.png');
   background-size: contain;
-  background-color: #000;
+  background-color: var(--dark-grey);
 }
 
-#catBtn:hover {
+#projectsBtn:hover {
   background-color: #666;
 }
 
-.minTodoDiv {
+.itemDiv {
   height: 28px;
   line-height: 28px;
   width: 100%;
 }
 
-.minTodoDiv:hover {
-  background-color: #ddd;
+.itemDiv:hover {
+  background-color: #ccc;
 }
 
 .highDiv {
@@ -160,7 +160,7 @@ img {
   background-color: hsl(60, 80%, 75%);
 }
 
-.completed {
+.checkbox {
   float: left;
   display: block;
   height: 22px;
@@ -169,11 +169,11 @@ img {
   border-width: 2px;
   border-radius: 5px;
   margin: 1px 10px 1px 10px;
-  background-color: #fff;
+  background-color: var(--light-grey);
   z-index: 1;
 }
 
-.completed:hover {
+.checkbox:hover {
   background: url('../img/tick_mask.png');
   background-size: contain;
   background-color: #bbb;

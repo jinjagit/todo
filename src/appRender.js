@@ -1,6 +1,6 @@
 const appRender = (() => {
 
-  const setScroll = (() => {
+  (() => { // set navbar srcoll behaviour (hide / reveal):
     let navbar = document.getElementById('navbar');
     let content = document.getElementById('content');
 
@@ -18,6 +18,21 @@ const appRender = (() => {
     }
   })();
 
+  (() => { // change some element dimensions on start / resize, as needed:
+    let navDiv = document.getElementById('navDiv');
+
+      //let titleDiv = document.getElementById('titleDiv');
+
+    const resize = () => { // set navbar titleDiv width:
+      if (navDiv.offsetWidth <= 652) {
+        //titleDiv.style.width = `${(navDiv.offsetWidth - 173)}px`;
+      }
+    };
+
+    resize();
+    document.body.onresize = function(){ resize(); };
+  })();
+
   // DEBUG: create content taller than page to test scroll effects
   const placeholderContent = () => {
     let content = document.getElementById('content');
@@ -32,9 +47,11 @@ const appRender = (() => {
       para.style.textAlign = "center";
       content.appendChild(para);
     }
+
+    window.dispatchEvent(new Event('resize'));
   };
 
-  return { placeholderContent }
+  return { placeholderContent };
 
 })();
 

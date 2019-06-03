@@ -3,9 +3,12 @@
   --dark-gold: #5e5b41;
   --dark-red: #130907;
   --mid-red: #490900;
+  --light-grey: #eee;
+  --dark-grey: #333;
 }
 
 body {
+  background-color: var(--light-grey);
   -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
      -khtml-user-select: none; /* Konqueror HTML */
@@ -33,6 +36,10 @@ h2 {
   font-size: 24px;
 }
 
+h3 {
+  font-size: 24px;
+}
+
 img {
   height: 100%;
   width: 100%;
@@ -46,7 +53,7 @@ img {
 }
 
 #navbar {
-  background-color: #333; /* Black background color */
+  background-color: var(--dark-grey);
   position: fixed; /* Make it stick/fixed */
   top: 0; /* Stay on top */
   width: 100%; /* Full width */
@@ -70,16 +77,87 @@ img {
   color: black;
 }
 
-#navText {
+#navDiv {
+  width: 100%;
+  max-width: 480px;
+  margin: auto;
+}
+
+#navBox {
   display: block;
-  color: white;
+  width: 84%;
+  max-width: 432px;
+  height: 32px;
+  line-height: 32px;
+  border-radius: 10px;
+  margin: 9px auto;
+  background-color: var(--light-grey);
+}
+
+#msgDiv {
+  display: block;
+  width: calc(100% - 34px);
+  height: 32px;
+  line-height: 32px;
+  box-shadow: inset 0 3px 5px #000000;
+  border-radius: 10px 0 0 10px;
+  float: left;
+}
+
+#navMsg {
   text-align: center;
+}
+
+#catBtn {
+  display: block;
+  width: 32px;
+  height: 32px;
+  border-style: solid;
+  border-left-width: 2px;
+  border-radius: 0 10px 10px 0;
+  box-shadow: inset 0 3px 5px #000000;
+  float: right;
+  background: url('../img/folders_mask.png');
+  background-size: contain;
+  background-color: #000;
+}
+
+#catBtn:hover {
+  background-color: #666;
 }
 
 .minTodoDiv {
   height: 28px;
   line-height: 28px;
   width: 100%;
+}
+
+.minTodoDiv:hover {
+  background-color: #ddd;
+}
+
+.highDiv {
+  background-color: hsl(0, 100%, 90%);
+}
+
+.highDiv:hover {
+  background-color: hsl(0, 100%, 80%);
+}
+
+.mediumDiv {
+  background-color: hsl(30, 100%, 90%);
+}
+
+.mediumDiv:hover {
+  background-color: hsl(30, 100%, 80%);
+}
+
+.lowDiv {
+  background-color: hsl(60, 100%, 90%);
+}
+
+.lowDiv:hover {
+  background-color: hsl(60, 80%, 75%);
 }
 
 .completed {
@@ -91,6 +169,8 @@ img {
   border-width: 2px;
   border-radius: 5px;
   margin: 1px 10px 1px 10px;
+  background-color: #fff;
+  z-index: 1;
 }
 
 .completed:hover {

@@ -1,23 +1,35 @@
-import { todoModel } from './todoModel'
+import { model } from './model'
 import { todosRender } from './todosRender'
 
 const todosController = (() => {
 
+  const sortByPriority = (todos) => {
+    let sorted = [], high = [], medium = [], low = [];
+    for (let i = 0; i < todos.length; i++) {
+      if (todos[i].priority == 'high') { high.push(todos[i]) }
+      else if (todos[i].priority == 'medium') { medium.push(todos[i]) }
+      else { low.push(todos[i]) }
+    }
+    return sorted = high.concat(medium.concat(low));
+  };
+
   const index = (project) => {
     // Insert filter of todos by project name
 
-    todosRender.index(todoModel.todos, project);
+    todosRender.index(sortByPriority(model.todos), project);
 
-    todoModel.logTodos(); // DEBUG
+    //model.logTodos(); // DEBUG
   };
 
   const destroy = (thisId) => {
     let id = thisId.slice(7);
-    todoModel.deleteTodo(id);
+    model.deleteTodo(id);
+
+
 
     // DEBUG:
     setTimeout(function() {
-      todoModel.logTodos();
+      model.logTodos();
     }, 500);
   };
 

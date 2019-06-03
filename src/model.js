@@ -1,6 +1,7 @@
-const todoModel = (() => {
+const model = (() => {
 
   let todos = [];
+  let projects = [];
 
   const uniqueId = (() => {
     let count = 0;
@@ -32,7 +33,13 @@ const todoModel = (() => {
       { title: 'wash car', description: 'nil', priority: 'low',
         project: 'regular stuff' },
       { title: 'buy beer', description: 'Kronenberg', priority: 'medium',
-        project: 'regular stuff' }
+        project: 'regular stuff' },
+      { title: 'research functions', description: 'make notes and save links', priority: 'high',
+        project: 'write article' },
+      { title: 'write body of article', description: 'actually write the thing', priority: 'medium',
+        project: 'write article' },
+      { title: 'proof read article', description: 'check for errors and bad grammar', priority: 'low',
+        project: 'write article' }
     ];
 
     for (let i = 0; i < todosInput.length; i++) {
@@ -41,6 +48,8 @@ const todoModel = (() => {
         todosInput[i].priority, todosInput[i].project
       ));
     }
+
+    projects = ['regular stuff', 'write article'];
   })();
 
   const deleteTodo = (id) => {
@@ -58,4 +67,4 @@ const todoModel = (() => {
 
 })();
 
-export { todoModel }
+export { model }

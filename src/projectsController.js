@@ -3,7 +3,7 @@ import { projectsRender } from './projectsRender'
 
 const projectsController = (() => {
   const index = () => {
-    projectsRender.index(model.projects); // sort alphabetically + add 'all'
+    projectsRender.index(['All projects / to-do items'].concat(model.projects));
   };
 
   return { index };

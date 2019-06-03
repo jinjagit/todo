@@ -42,10 +42,13 @@ const todosRender = (() => {
     addNew.appendChild(plusSign);
     content.appendChild(addNew);
 
-    // set navbar content & link to projects index
+    // set navbar content & add link to projects index
+    let msgDiv = document.getElementById('msgDiv');
+    msgDiv.style.width = 'calc(100% - 34px)';
     let navMsg = document.getElementById('navMsg');
     navMsg.innerHTML = project;
     let projectsBtn = document.getElementById('projectsBtn');
+    projectsBtn.style.display = 'block';
     projectsBtn.addEventListener("click", function() {
       projectsController.index();
     });

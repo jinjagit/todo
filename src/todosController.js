@@ -14,11 +14,17 @@ const todosController = (() => {
   };
 
   const index = (project) => {
+    project = project.slice(8);
     // Insert filter of todos by project name
-
-    todosRender.index(sortByPriority(model.todos), project);
-
-    //model.logTodos(); // DEBUG
+    if (project == 'All projects / to-do items') {
+      todosRender.index(sortByPriority(model.todos), 'All to-do items');
+    } else {
+      let todos = [];
+      for (let i = 0; i < model.todos.length; i++) {
+        if (project == model.todos[i].project) { todos.push(model.todos[i]); }
+      }
+      todosRender.index(sortByPriority(todos), project);
+    }
   };
 
   const destroy = (thisId) => {

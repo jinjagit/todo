@@ -34,11 +34,13 @@ const model = (() => {
         project: 'regular stuff' },
       { title: 'buy beer', description: 'Kronenberg', priority: 'medium',
         project: 'regular stuff' },
-      { title: 'research functions', description: 'make notes and save links', priority: 'high',
+      { title: 'research arrow functions', description: 'make notes and save links', priority: 'high',
         project: 'write article' },
       { title: 'write body of article', description: 'actually write the thing', priority: 'medium',
         project: 'write article' },
-      { title: 'proof read article', description: 'check for errors and bad grammar', priority: 'low',
+      { title: 'proofread article', description: 'check for errors and bad grammar', priority: 'low',
+        project: 'write article' },
+      { title: 'research IIFEs', description: 'what are they, and when are they used?', priority: 'medium',
         project: 'write article' }
     ];
 

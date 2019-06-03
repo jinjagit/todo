@@ -27,7 +27,7 @@ const projectsRender = (() => {
       content.appendChild(div);
       div.appendChild(deletebox);
       div.appendChild(title);
-      if (projects[i] == 'All projects / to-do items') {
+      if (projects[i] == 'All projects & to-dos') {
         let line = document.createElement('hr');
         content.appendChild(line);
       }

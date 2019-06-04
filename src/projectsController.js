@@ -6,7 +6,11 @@ const projectsController = (() => {
     projectsRender.index(model.projects);
   };
 
-  return { index };
+  const destroy = (project) => {
+    model.deleteProject(project);
+  };
+
+  return { index, destroy };
 })();
 
 export { projectsController }

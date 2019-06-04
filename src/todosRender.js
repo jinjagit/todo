@@ -7,6 +7,7 @@ const todosRender = (() => {
   const index = (todos, project) => {
     appRender.clearContent();
     let content = document.getElementById('content');
+    let titleW = content.offsetWidth - 56;
 
     for(let i = 0; i < todos.length; i++) {
       let div = document.createElement('div');
@@ -25,7 +26,8 @@ const todosRender = (() => {
         removeTodo(this.id);
       });
       let title = document.createElement('h2');
-      title.innerHTML = todos[i].title;
+      title.innerHTML = appRender.fitString(todos[i].title, titleW);
+      title.classList.add('title');
       content.appendChild(div);
       div.appendChild(checkbox);
       div.appendChild(title);
@@ -42,9 +44,11 @@ const todosRender = (() => {
     addNew.appendChild(plusSign);
     content.appendChild(addNew);
 
-    // set navbar content & add link to projects index
+    // set navbar content & link to projects index
     let navMsg = document.getElementById('navMsg');
-    navMsg.innerHTML = project;
+    navMsg.innerHTML = appRender.fitString(
+      project, document.getElementById('msgDiv').offsetWidth - 12
+    );
     let projectsBtn = document.getElementById('projectsBtn');
     projectsBtn.classList.remove('eyeIcon');
     projectsBtn.classList.add('foldersIcon');
@@ -52,6 +56,20 @@ const todosRender = (() => {
     projectsBtn.addEventListener("click", function() {
       projectsController.index();
     });
+
+    const resize = () => {
+      navMsg.innerHTML = appRender.fitString(
+        project, document.getElementById('msgDiv').offsetWidth - 12
+      );
+      let titles = document.getElementsByClassName('title');
+      for (let i = 0; i < titles.length; i++) {
+        titles[i].innerHTML = appRender.fitString(
+          todos[i].title, content.offsetWidth - 56
+        );
+      }
+    };
+
+    document.body.onresize = function(){ resize(); };
   };
 
   // private:

@@ -26,22 +26,19 @@ const appRender = (() => {
     }
   };
 
+  const fitString = (string, width) => {
+    if (string.length * 12 > width) {
+      let remove = (Math.floor(width / 12) - 3) - string.length;
+      string = string.slice(0, remove).concat('...');
+    }
+
+    return string;
+  };
+
   // ----------- extras -----------------
 
-  (() => { // Resize: UNUSED
-    let navDiv = document.getElementById('navDiv');
 
-      //let titleDiv = document.getElementById('titleDiv');
 
-    const resize = () => { // set navbar titleDiv width:
-      if (navDiv.offsetWidth <= 652) {
-        //titleDiv.style.width = `${(navDiv.offsetWidth - 173)}px`;
-      }
-    };
-
-    //resize();
-    //document.body.onresize = function(){ resize(); };
-  })();
 
   // DEBUG: create content taller than page to test scroll effects
   const placeholderContent = () => {
@@ -61,7 +58,7 @@ const appRender = (() => {
     window.dispatchEvent(new Event('resize'));
   };
 
-  return { clearContent, placeholderContent };
+  return { clearContent, fitString, placeholderContent };
 
 })();
 

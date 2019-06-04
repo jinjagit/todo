@@ -6,6 +6,7 @@ const projectsRender = (() => {
   const index = (projects) => {
     appRender.clearContent();
     let content = document.getElementById('content');
+    let titleW = content.offsetWidth - 56;
 
     /*let spacer = document.createElement('div');
     spacer.style.height = '7px';
@@ -28,7 +29,8 @@ const projectsRender = (() => {
         removeProject(this.id);
       });
       let title = document.createElement('h2');
-      title.innerHTML = projects[i];
+      title.innerHTML = appRender.fitString(projects[i], titleW);
+      title.classList.add('title');
       content.appendChild(div);
       div.appendChild(deletebox);
       div.appendChild(title);
@@ -45,7 +47,7 @@ const projectsRender = (() => {
     addNew.appendChild(plusSign);
     content.appendChild(addNew);
 
-    // set navbar content & remove link to projects index
+    // set navbar content & link to 'all todo items' index
     let projectsBtn = document.getElementById('projectsBtn');
     projectsBtn.classList.add('eyeIcon');
     projectsBtn.title = 'view all todo items from all projects';
@@ -54,15 +56,27 @@ const projectsRender = (() => {
     });
     let navMsg = document.getElementById('navMsg');
     navMsg.innerHTML = 'Projects';
+
+    const resize = () => {
+      let titles = document.getElementsByClassName('title');
+      for (let i = 0; i < titles.length; i++) {
+        titles[i].innerHTML = appRender.fitString(
+          projects[i], content.offsetWidth - 56
+        );
+      }
+    };
+
+    document.body.onresize = function(){ resize(); };
   };
 
   // private
 
   const removeProject = (thisId) => {
     let id = thisId.slice(7);
-    if (confirm(`Really delete project: ${id}?`) == true) {
-      console.log('delete confirmed!');
-      //projectsController.destroy(this.id);
+    if (confirm(`Really delete project: ${id}\nand all todo items it contains?`) == true) {
+      projectsController.destroy(id);
+      let projectDiv = document.getElementById(`project_${id}`);
+      projectDiv.parentNode.removeChild(projectDiv);
     }
   };
 

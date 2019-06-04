@@ -2,7 +2,6 @@ import { model } from './model'
 import { todosRender } from './todosRender'
 
 const todosController = (() => {
-
   const sortByPriority = (todos) => {
     let sorted = [], high = [], medium = [], low = [];
     for (let i = 0; i < todos.length; i++) {
@@ -15,7 +14,6 @@ const todosController = (() => {
 
   const index = (project) => {
     project = project.slice(8);
-    // Insert filter of todos by project name
     if (project == 'All to-do items') {
       todosRender.index(sortByPriority(model.todos), 'All to-do items');
     } else {
@@ -28,18 +26,12 @@ const todosController = (() => {
   };
 
   const destroy = (thisId) => {
-    let id = thisId.slice(7);
-    model.deleteTodo(id);
-    // DEBUG:
-    setTimeout(function() {
-      model.logTodos();
-    }, 500);
+    model.deleteTodo(thisId.slice(7));
   };
 
-  index('project_All to-do items');
+  index('project_All to-do items'); // runs at app start
 
   return { index, destroy };
-
 })();
 
 export { todosController }

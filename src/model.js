@@ -26,38 +26,35 @@ const model = (() => {
   };
 
   // Change this to a check for local storage, etc.
-  const createExamples = (() => {
-    let todosInput = [
-      { title: 'do laundry', description: 'remember jeans', priority: 'high',
-        project: 'regular stuff' },
-      { title: 'wash car', description: 'nil', priority: 'low',
-        project: 'regular stuff' },
-      { title: 'buy beer', description: 'Kronenberg', priority: 'medium',
-        project: 'regular stuff' },
-      { title: 'research arrow functions', description: 'make notes and save links', priority: 'high',
-        project: 'write article' },
-      { title: 'write body of article', description: 'actually write the thing', priority: 'medium',
-        project: 'write article' },
-      { title: 'proofread article', description: 'check for errors and bad grammar', priority: 'low',
-        project: 'write article' },
-      { title: 'research IIFEs', description: 'what are they, and when are they used?', priority: 'medium',
-        project: 'write article' }
-    ];
+  let todosExamples = [
+    { title: 'do laundry', description: 'remember jeans', priority: 'high',
+      project: 'regular stuff' },
+    { title: 'wash car', description: 'nil', priority: 'low',
+      project: 'regular stuff' },
+    { title: 'buy beer', description: 'Kronenberg', priority: 'medium',
+      project: 'regular stuff' },
+    { title: 'research arrow functions', description: 'make notes and save links', priority: 'high',
+      project: 'write article' },
+    { title: 'write body of article', description: 'actually write the thing', priority: 'medium',
+      project: 'write article' },
+    { title: 'proofread article', description: 'check for errors and bad grammar', priority: 'low',
+      project: 'write article' },
+    { title: 'research IIFEs', description: 'what are they, and when are they used?', priority: 'medium',
+      project: 'write article' },
+    { title: 'todo with example really long title', description: 'for testing long strings', priority: 'medium',
+      project: 'project with really long title' }
+  ];
 
-    for (let i = 0; i < todosInput.length; i++) {
-      todos.push(
-        todoFactory(uniqueId(), todosInput[i].title, todosInput[i].description,
-        todosInput[i].priority, todosInput[i].project
-      ));
-    }
+  for (let i = 0; i < todosExamples.length; i++) {
+    todos.push(
+      todoFactory(uniqueId(), todosExamples[i].title, todosExamples[i].description,
+      todosExamples[i].priority, todosExamples[i].project
+    ));
+  }
 
-    projects = ['regular stuff', 'write article'];
-  })();
+  projects = ['regular stuff', 'write article', 'project with really long title'];
 
-  const deleteTodo = (id) => {
-    todos.splice(todos.indexOf(todos.find(e => e.id == id)), 1);
-  };
-
+  // DEBUG:
   const logTodos = () => {
     console.log('----------');
     for (let i = 0; i < todos.length; i++) {
@@ -65,7 +62,23 @@ const model = (() => {
     }
   };
 
-  return { todos, projects, createExamples, deleteTodo, logTodos };
+  // C.R.U.D:
+
+  const deleteTodo = (id) => {
+    todos.splice(todos.indexOf(todos.find(e => e.id == id)), 1);
+  };
+
+  const deleteProject = (project) => {
+    for (let i = 0; i < todos.length; i++) {
+      if (todos[i].project == project) {
+        deleteTodo(todos[i].id);
+        i--;
+      }
+    }
+    projects.splice(projects.indexOf(projects.find(e => e == project)), 1);
+  };
+
+  return { todos, projects, deleteTodo, deleteProject, logTodos };
 
 })();
 

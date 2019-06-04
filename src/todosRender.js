@@ -94,15 +94,19 @@ const todosRender = (() => {
       todoForm.appendChild(label);
       todoForm.appendChild(input);
     }
-    console.log(thisId);
 
-    let formDiv = document.createElement('div');
-    formDiv.classList.add('formDiv');
     let todoForm = document.createElement('form');
     addInput('title');
     addInput('description');
-    formDiv.appendChild(todoForm);
-    content.appendChild(formDiv);
+
+    if (thisId == 'addNew') {
+      let formDiv = document.createElement('div');
+      formDiv.classList.add('formDiv');
+      formDiv.appendChild(todoForm);
+      content.appendChild(formDiv);
+    } else { // use thisId to find element for form; clear it first
+
+    }
   }
 
   return { index };

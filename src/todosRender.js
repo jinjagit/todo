@@ -95,6 +95,7 @@ const todosRender = (() => {
       todoForm.appendChild(input);
     }
 
+    let page = document.getElementById('content');
     let todoForm = document.createElement('form');
     addInput('title');
     addInput('description');

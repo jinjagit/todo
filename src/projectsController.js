@@ -3,7 +3,7 @@ import { projectsRender } from './projectsRender'
 
 const projectsController = (() => {
   const index = () => {
-    projectsRender.index(['All projects & to-dos'].concat(model.projects));
+    projectsRender.index(model.projects);
   };
 
   return { index };

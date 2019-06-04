@@ -16,7 +16,7 @@ const todosController = (() => {
   const index = (project) => {
     project = project.slice(8);
     // Insert filter of todos by project name
-    if (project == 'All projects & to-dos') {
+    if (project == 'All to-do items') {
       todosRender.index(sortByPriority(model.todos), 'All to-do items');
     } else {
       let todos = [];
@@ -36,7 +36,7 @@ const todosController = (() => {
     }, 500);
   };
 
-  index('project_All projects & to-dos');
+  index('project_All to-do items');
 
   return { index, destroy };
 

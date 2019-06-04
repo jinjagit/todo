@@ -7,9 +7,9 @@ const projectsRender = (() => {
     appRender.clearContent();
     let content = document.getElementById('content');
 
-    let spacer = document.createElement('div');
+    /*let spacer = document.createElement('div');
     spacer.style.height = '7px';
-    content.appendChild(spacer);
+    content.appendChild(spacer);*/
 
     for(let i = 0; i < projects.length; i++) {
       let div = document.createElement('div');
@@ -25,8 +25,6 @@ const projectsRender = (() => {
       deletebox.addEventListener("click", function(e) {
         e.stopPropagation();
         console.log(`clicked: ${this.id}`);
-
-        //projectsController.destroy(this.id);
         removeProject(this.id);
       });
       let title = document.createElement('h2');
@@ -34,10 +32,6 @@ const projectsRender = (() => {
       content.appendChild(div);
       div.appendChild(deletebox);
       div.appendChild(title);
-      if (projects[i] == 'All projects & to-dos') {
-        let line = document.createElement('hr');
-        content.appendChild(line);
-      }
     }
 
     let addNew = document.createElement('div');
@@ -52,10 +46,12 @@ const projectsRender = (() => {
     content.appendChild(addNew);
 
     // set navbar content & remove link to projects index
-    let msgDiv = document.getElementById('msgDiv');
-    msgDiv.style.width = '100%';
     let projectsBtn = document.getElementById('projectsBtn');
-    projectsBtn.style.display = 'none';
+    projectsBtn.classList.add('eyeIcon');
+    projectsBtn.title = 'view all todo items from all projects';
+    projectsBtn.addEventListener("click", function() {
+      todosController.index('project_All to-do items');
+    });
     let navMsg = document.getElementById('navMsg');
     navMsg.innerHTML = 'Projects';
   };
@@ -63,8 +59,11 @@ const projectsRender = (() => {
   // private
 
   const removeProject = (thisId) => {
-    let really = confirm("Really delete?");
-
+    let id = thisId.slice(7);
+    if (confirm(`Really delete project: ${id}?`) == true) {
+      console.log('delete confirmed!');
+      //projectsController.destroy(this.id);
+    }
   };
 
   // ? will use parent elelment as param, not id, then find ids needed

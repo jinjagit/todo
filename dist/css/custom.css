@@ -124,13 +124,20 @@ hr {
   border-radius: 0 10px 10px 0;
   box-shadow: inset 0 2px 5px #333;
   float: right;
-  background: url('../img/folders_mask.png');
   background-size: contain;
   background-color: var(--dark-grey);
 }
 
 #projectsBtn:hover {
   background-color: #666;
+}
+
+.foldersIcon {
+  background: url('../img/folders_mask.png');
+}
+
+.eyeIcon {
+  background: url('../img/eye_mask.png');
 }
 
 .itemDiv {

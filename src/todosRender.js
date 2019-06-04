@@ -6,8 +6,8 @@ const todosRender = (() => {
 
   const index = (todos, project) => {
     appRender.clearContent();
-    let page = document.getElementById('content');
-    let titleW = page.offsetWidth - 56;
+    let content = document.getElementById('content');
+    let titleW = content.offsetWidth - 56;
 
     for(let i = 0; i < todos.length; i++) {
       let div = document.createElement('div');
@@ -28,7 +28,7 @@ const todosRender = (() => {
       let title = document.createElement('h2');
       title.innerHTML = appRender.fitString(todos[i].title, titleW);
       title.classList.add('title');
-      page.appendChild(div);
+      content.appendChild(div);
       div.appendChild(checkbox);
       div.appendChild(title);
     }
@@ -43,9 +43,9 @@ const todosRender = (() => {
     plusSign.id = 'plusSign';
     plusSign.innerHTML = '+';
     addNew.appendChild(plusSign);
-    page.appendChild(addNew);
+    content.appendChild(addNew);
 
-    // set navbar page & link to projects index
+    // set navbar content & link to projects index
     let navMsg = document.getElementById('navMsg');
     navMsg.innerHTML = appRender.fitString(
       project, document.getElementById('msgDiv').offsetWidth - 12
@@ -65,7 +65,7 @@ const todosRender = (() => {
       let titles = document.getElementsByClassName('title');
       for (let i = 0; i < titles.length; i++) {
         titles[i].innerHTML = appRender.fitString(
-          todos[i].title, page.offsetWidth - 56
+          todos[i].title, content.offsetWidth - 56
         );
       }
     };
@@ -95,7 +95,7 @@ const todosRender = (() => {
       todoForm.appendChild(input);
     }
 
-    let page = document.getElementById('content');
+    let content = document.getElementById('content');
     let todoForm = document.createElement('form');
     addInput('title');
     addInput('description');
@@ -104,7 +104,7 @@ const todosRender = (() => {
       let formDiv = document.createElement('div');
       formDiv.classList.add('formDiv');
       formDiv.appendChild(todoForm);
-      page.appendChild(formDiv);
+      content.appendChild(formDiv);
     } else { // use thisId to find element for form; clear it first
 
     }

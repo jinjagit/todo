@@ -6,8 +6,8 @@ const todosRender = (() => {
 
   const index = (todos, project) => {
     appRender.clearContent();
-    let content = document.getElementById('content');
-    let titleW = content.offsetWidth - 56;
+    let page = document.getElementById('content');
+    let titleW = page.offsetWidth - 56;
 
     for(let i = 0; i < todos.length; i++) {
       let div = document.createElement('div');
@@ -28,7 +28,7 @@ const todosRender = (() => {
       let title = document.createElement('h2');
       title.innerHTML = appRender.fitString(todos[i].title, titleW);
       title.classList.add('title');
-      content.appendChild(div);
+      page.appendChild(div);
       div.appendChild(checkbox);
       div.appendChild(title);
     }
@@ -43,9 +43,9 @@ const todosRender = (() => {
     plusSign.id = 'plusSign';
     plusSign.innerHTML = '+';
     addNew.appendChild(plusSign);
-    content.appendChild(addNew);
+    page.appendChild(addNew);
 
-    // set navbar content & link to projects index
+    // set navbar page & link to projects index
     let navMsg = document.getElementById('navMsg');
     navMsg.innerHTML = appRender.fitString(
       project, document.getElementById('msgDiv').offsetWidth - 12
@@ -65,7 +65,7 @@ const todosRender = (() => {
       let titles = document.getElementsByClassName('title');
       for (let i = 0; i < titles.length; i++) {
         titles[i].innerHTML = appRender.fitString(
-          todos[i].title, content.offsetWidth - 56
+          todos[i].title, page.offsetWidth - 56
         );
       }
     };
@@ -103,7 +103,7 @@ const todosRender = (() => {
       let formDiv = document.createElement('div');
       formDiv.classList.add('formDiv');
       formDiv.appendChild(todoForm);
-      content.appendChild(formDiv);
+      page.appendChild(formDiv);
     } else { // use thisId to find element for form; clear it first
 
     }

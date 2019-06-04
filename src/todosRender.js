@@ -36,6 +36,7 @@ const todosRender = (() => {
     let addNew = document.createElement('div');
     addNew.id = 'addNew';
     addNew.addEventListener("click", function() {
+      addNew.style.display = 'none';
       form(this.id);
     });
     let plusSign = document.createElement('p');
@@ -57,7 +58,7 @@ const todosRender = (() => {
       projectsController.index();
     });
 
-    const resize = () => {
+    document.body.onresize = function(){
       navMsg.innerHTML = appRender.fitString(
         project, document.getElementById('msgDiv').offsetWidth - 12
       );
@@ -68,8 +69,6 @@ const todosRender = (() => {
         );
       }
     };
-
-    document.body.onresize = function(){ resize(); };
   };
 
   // private:
@@ -86,7 +85,24 @@ const todosRender = (() => {
 
   // ? will use parent elelment as param, not id, then find ids needed
   const form = (thisId) => {
+    const addInput = (id) => {
+      let label = document.createElement('h4');
+      label.innerHTML = `${id}:`;
+      let input = document.createElement('input');
+      input.type = 'text';
+      input.id = `${id}`;
+      todoForm.appendChild(label);
+      todoForm.appendChild(input);
+    }
     console.log(thisId);
+
+    let formDiv = document.createElement('div');
+    formDiv.classList.add('formDiv');
+    let todoForm = document.createElement('form');
+    addInput('title');
+    addInput('description');
+    formDiv.appendChild(todoForm);
+    content.appendChild(formDiv);
   }
 
   return { index };

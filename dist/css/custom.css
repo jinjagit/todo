@@ -40,6 +40,11 @@ h3 {
   font-size: 24px;
 }
 
+h4 {
+  font-size: 16px;
+  font-family: 'Ubuntu', sans-serif;
+}
+
 img {
   height: 100%;
   width: 100%;
@@ -50,6 +55,11 @@ hr {
   height: 1px;
   border: 0px;
   width: 95%;
+}
+
+input {
+  width: 100%;
+  margin-bottom: 3px;
 }
 
 #content {
@@ -248,4 +258,8 @@ hr {
 #heading {
   float: none;
   text-align: center;
+}
+
+.formDiv {
+  padding: 5px 10px 5px 10px;
 }

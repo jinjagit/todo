@@ -57,7 +57,7 @@ const projectsRender = (() => {
     let navMsg = document.getElementById('navMsg');
     navMsg.innerHTML = 'Projects';
 
-    const resize = () => {
+    document.body.onresize = function(){
       let titles = document.getElementsByClassName('title');
       for (let i = 0; i < titles.length; i++) {
         titles[i].innerHTML = appRender.fitString(
@@ -65,8 +65,6 @@ const projectsRender = (() => {
         );
       }
     };
-
-    document.body.onresize = function(){ resize(); };
   };
 
   // private

@@ -30,14 +30,13 @@ const todosController = (() => {
   const destroy = (thisId) => {
     let id = thisId.slice(7);
     model.deleteTodo(id);
-
-
-
     // DEBUG:
     setTimeout(function() {
       model.logTodos();
     }, 500);
   };
+
+  index('project_All projects & to-dos');
 
   return { index, destroy };
 

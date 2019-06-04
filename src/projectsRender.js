@@ -21,7 +21,14 @@ const projectsRender = (() => {
       // need different styling class for deletebox + eventlistener
       let deletebox = document.createElement('div');
       deletebox.classList.add('deletebox');
+      deletebox.id = `delete_${projects[i]}`;
+      deletebox.addEventListener("click", function(e) {
+        e.stopPropagation();
+        console.log(`clicked: ${this.id}`);
 
+        //projectsController.destroy(this.id);
+        removeProject(this.id);
+      });
       let title = document.createElement('h2');
       title.innerHTML = projects[i];
       content.appendChild(div);
@@ -33,6 +40,17 @@ const projectsRender = (() => {
       }
     }
 
+    let addNew = document.createElement('div');
+    addNew.id = 'addNew';
+    addNew.addEventListener("click", function() {
+      form(this.id);
+    });
+    let plusSign = document.createElement('p');
+    plusSign.id = 'plusSign';
+    plusSign.innerHTML = '+';
+    addNew.appendChild(plusSign);
+    content.appendChild(addNew);
+
     // set navbar content & remove link to projects index
     let msgDiv = document.getElementById('msgDiv');
     msgDiv.style.width = '100%';
@@ -40,6 +58,18 @@ const projectsRender = (() => {
     projectsBtn.style.display = 'none';
     let navMsg = document.getElementById('navMsg');
     navMsg.innerHTML = 'Projects';
+  };
+
+  // private
+
+  const removeProject = (thisId) => {
+    let really = confirm("Really delete?");
+
+  };
+
+  // ? will use parent elelment as param, not id, then find ids needed
+  const form = (thisId) => {
+    console.log(thisId);
   };
 
   return { index };

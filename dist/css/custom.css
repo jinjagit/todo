@@ -157,15 +157,11 @@ input {
 }
 
 .highDiv {
-  background-image: linear-gradient(
-    hsl(0, 100%, 85%) 10%, hsl(0, 100%, 90%), hsl(0, 100%, 85%) 90%
-  );
+  background-color: hsl(0, 100%, 90%);
 }
 
 .highDiv:hover {
-  background-image: linear-gradient(
-    hsl(0, 100%, 75%) 10%, hsl(0, 100%, 85%), hsl(0, 100%, 75%) 90%
-  );
+  background-color: hsl(0, 100%, 80%);
 }
 
 .mediumDiv {

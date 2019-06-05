@@ -27,8 +27,6 @@ const todosController = (() => {
     model.deleteTodo(thisId.slice(7));
   };
 
-  //index('project_All to-do items'); // runs at app start
-
   return { index, destroy };
 })();
 

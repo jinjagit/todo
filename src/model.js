@@ -24,7 +24,8 @@ const model = (() => {
 
     return {
       id, title, description, priority, project,
-      setTitle, setDescription, setPriority, setProject, output };
+      setTitle, setDescription, setPriority, setProject, output
+    };
   };
 
   const initialize = () => {

@@ -27,12 +27,10 @@ const appRender = (() => {
   };
 
   const initialize = () => {
-
-    // set styling / behaviours common to all views:
     let navbar = document.getElementById('navbar');
     let content = document.getElementById('content');
 
-    // set navbar scroll behaviour (hide / reveal):
+    // set navbar scroll behaviour (hide / reveal)
     var prevScrollpos = window.pageYOffset;
     window.onscroll = function() {
       var currentScrollPos = window.pageYOffset;
@@ -46,13 +44,13 @@ const appRender = (() => {
       prevScrollpos = currentScrollPos;
     }
 
-
-    todosRender.index('project_All to-do items');
-
+    // set initial navBtn icon & add click event
     let navBtn = document.getElementById('navBtn');
     navBtn.classList.add('foldersIcon');
     navBtn.title = 'view projects';
     navBtn.addEventListener("click", navBtnClick);
+
+    todosRender.index('project_All to-do items');
   };
 
 

@@ -1,7 +1,7 @@
 import { model } from './model'
 
 const todosController = (() => {
-  const sortByPriority = (todos) => {
+  const sortByPriority = (todos) => { // can probably move inside index()
     let sorted = [], high = [], medium = [], low = [];
     for (let i = 0; i < todos.length; i++) {
       if (todos[i].priority == 'high') { high.push(todos[i]) }

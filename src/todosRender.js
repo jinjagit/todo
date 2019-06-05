@@ -1,23 +1,13 @@
+import { renderUtils } from './renderUtils'
 import { todosController } from './todosController'
 
 const todosRender = (() => {
-  const fitString = (string, width) => {
-    if (string.length * 12 > width) {
-      let remove = (Math.floor(width / 12) - 3) - string.length;
-      string = string.slice(0, remove).concat('...');
-    }
-
-    return string;
-  };
 
   const index = (project) => {
     project = project.slice(8);
     let todos = todosController.index(project);
-    //appRender.clearContent();
+    renderUtils.clearContent();
     let content = document.getElementById('content');
-    while (content.firstChild) {
-        content.removeChild(content.firstChild);
-    }
     let titleW = content.offsetWidth - 56;
 
     for(let i = 0; i < todos.length; i++) {
@@ -37,7 +27,7 @@ const todosRender = (() => {
         removeTodo(this.id);
       });
       let title = document.createElement('h2');
-      title.innerHTML = fitString(todos[i].title, titleW);
+      title.innerHTML = renderUtils.fitString(todos[i].title, titleW);
       title.classList.add('title');
       content.appendChild(div);
       div.appendChild(checkbox);
@@ -56,19 +46,20 @@ const todosRender = (() => {
     addNew.appendChild(plusSign);
     content.appendChild(addNew);
 
-    // set navbar content & link to projects index
+    // set navbar navbar message
     let navMsg = document.getElementById('navMsg');
-    navMsg.innerHTML = fitString(
+    navMsg.innerHTML = renderUtils.fitString(
       project, document.getElementById('msgDiv').offsetWidth - 12
     );
 
+    // onResize: reformat text that would otherwise overflow
     document.body.onresize = function(){
-      navMsg.innerHTML = fitString(
+      navMsg.innerHTML = renderUtils.fitString(
         project, document.getElementById('msgDiv').offsetWidth - 12
       );
       let titles = document.getElementsByClassName('title');
       for (let i = 0; i < titles.length; i++) {
-        titles[i].innerHTML = fitString(
+        titles[i].innerHTML = renderUtils.fitString(
           todos[i].title, content.offsetWidth - 56
         );
       }

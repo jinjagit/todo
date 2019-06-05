@@ -3,15 +3,6 @@ import { todosRender } from './todosRender'
 
 const appRender = (() => {
 
-  const fitString = (string, width) => {
-    if (string.length * 12 > width) {
-      let remove = (Math.floor(width / 12) - 3) - string.length;
-      string = string.slice(0, remove).concat('...');
-    }
-
-    return string;
-  };
-
   const navBtnClick = () => {
     if (navBtn.classList.value == 'foldersIcon') {
       navBtn.classList.remove('foldersIcon');

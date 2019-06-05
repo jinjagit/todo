@@ -1,29 +1,15 @@
+import { renderUtils } from './renderUtils'
 import { projectsController } from './projectsController'
 import { todosRender } from './todosRender'
 
 const projectsRender = (() => {
-  const fitString = (string, width) => {
-    if (string.length * 12 > width) {
-      let remove = (Math.floor(width / 12) - 3) - string.length;
-      string = string.slice(0, remove).concat('...');
-    }
-
-    return string;
-  };
 
   const index = () => {
-    //appRender.clearContent();
+    renderUtils.clearContent();
     let projects = projectsController.index();
     let content = document.getElementById('content');
-    while (content.firstChild) {
-        content.removeChild(content.firstChild);
-    }
     let navBtn = document.getElementById('navBtn');
     let titleW = content.offsetWidth - 56;
-
-    /*let spacer = document.createElement('div');
-    spacer.style.height = '7px';
-    content.appendChild(spacer);*/
 
     for(let i = 0; i < projects.length; i++) {
       let div = document.createElement('div');
@@ -35,7 +21,6 @@ const projectsRender = (() => {
         navBtn.title = 'view projects';
         todosRender.index(this.id);
       });
-      // need different styling class for deletebox + eventlistener
       let deletebox = document.createElement('div');
       deletebox.classList.add('deletebox');
       deletebox.id = `delete_${projects[i]}`;
@@ -45,7 +30,7 @@ const projectsRender = (() => {
         removeProject(this.id);
       });
       let title = document.createElement('h2');
-      title.innerHTML = fitString(projects[i], titleW);
+      title.innerHTML = renderUtils.fitString(projects[i], titleW);
       title.classList.add('title');
       content.appendChild(div);
       div.appendChild(deletebox);
@@ -63,15 +48,15 @@ const projectsRender = (() => {
     addNew.appendChild(plusSign);
     content.appendChild(addNew);
 
-    // set navbar content & link to 'all todo items' index
-
+    // set navbar message
     let navMsg = document.getElementById('navMsg');
     navMsg.innerHTML = 'Projects';
 
+    // onResize: reformat text that would otherwise overflow
     document.body.onresize = function(){
       let titles = document.getElementsByClassName('title');
       for (let i = 0; i < titles.length; i++) {
-        titles[i].innerHTML = fitString(
+        titles[i].innerHTML = renderUtils.fitString(
           projects[i], content.offsetWidth - 56
         );
       }

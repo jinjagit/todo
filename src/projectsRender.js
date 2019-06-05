@@ -1,11 +1,24 @@
-import { appRender } from './appRender'
 import { projectsController } from './projectsController'
-import { todosController } from './todosController'
+import { todosRender } from './todosRender'
 
 const projectsRender = (() => {
-  const index = (projects) => {
-    appRender.clearContent();
+  const fitString = (string, width) => {
+    if (string.length * 12 > width) {
+      let remove = (Math.floor(width / 12) - 3) - string.length;
+      string = string.slice(0, remove).concat('...');
+    }
+
+    return string;
+  };
+
+  const index = () => {
+    //appRender.clearContent();
+    let projects = projectsController.index();
     let content = document.getElementById('content');
+    while (content.firstChild) {
+        content.removeChild(content.firstChild);
+    }
+    let navBtn = document.getElementById('navBtn');
     let titleW = content.offsetWidth - 56;
 
     /*let spacer = document.createElement('div');
@@ -17,7 +30,10 @@ const projectsRender = (() => {
       div.classList.add('itemDiv');
       div.id = `project_${projects[i]}`;
       div.addEventListener("click", function() {
-        todosController.index(this.id);
+        navBtn.classList.remove('eyeIcon');
+        navBtn.classList.add('foldersIcon');
+        navBtn.title = 'view projects';
+        todosRender.index(this.id);
       });
       // need different styling class for deletebox + eventlistener
       let deletebox = document.createElement('div');
@@ -29,7 +45,7 @@ const projectsRender = (() => {
         removeProject(this.id);
       });
       let title = document.createElement('h2');
-      title.innerHTML = appRender.fitString(projects[i], titleW);
+      title.innerHTML = fitString(projects[i], titleW);
       title.classList.add('title');
       content.appendChild(div);
       div.appendChild(deletebox);
@@ -48,19 +64,14 @@ const projectsRender = (() => {
     content.appendChild(addNew);
 
     // set navbar content & link to 'all todo items' index
-    let projectsBtn = document.getElementById('projectsBtn');
-    projectsBtn.classList.add('eyeIcon');
-    projectsBtn.title = 'view all todo items from all projects';
-    projectsBtn.addEventListener("click", function() {
-      todosController.index('project_All to-do items');
-    });
+
     let navMsg = document.getElementById('navMsg');
     navMsg.innerHTML = 'Projects';
 
     document.body.onresize = function(){
       let titles = document.getElementsByClassName('title');
       for (let i = 0; i < titles.length; i++) {
-        titles[i].innerHTML = appRender.fitString(
+        titles[i].innerHTML = fitString(
           projects[i], content.offsetWidth - 56
         );
       }

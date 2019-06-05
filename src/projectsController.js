@@ -1,9 +1,8 @@
 import { model } from './model'
-import { projectsRender } from './projectsRender'
 
 const projectsController = (() => {
   const index = () => {
-    projectsRender.index(model.projects);
+    return model.projects;
   };
 
   const destroy = (project) => {

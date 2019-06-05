@@ -25,34 +25,39 @@ const model = (() => {
       setTitle, setDescription, setPriority, setProject, output };
   };
 
-  // Change this to a check for local storage, etc.
-  let todosExamples = [
-    { title: 'do laundry', description: 'remember jeans', priority: 'high',
-      project: 'regular stuff' },
-    { title: 'wash car', description: 'nil', priority: 'low',
-      project: 'regular stuff' },
-    { title: 'buy beer', description: 'Kronenberg', priority: 'medium',
-      project: 'regular stuff' },
-    { title: 'research arrow functions', description: 'make notes and save links', priority: 'high',
-      project: 'write article' },
-    { title: 'write body of article', description: 'actually write the thing', priority: 'medium',
-      project: 'write article' },
-    { title: 'proofread article', description: 'check for errors and bad grammar', priority: 'low',
-      project: 'write article' },
-    { title: 'research IIFEs', description: 'what are they, and when are they used?', priority: 'medium',
-      project: 'write article' },
-    { title: 'todo with example really long title', description: 'for testing long strings', priority: 'medium',
-      project: 'project with really long title' }
-  ];
+  const initialize = () => {
+    // Change this to a check for local storage, etc.
+    let todosExamples = [
+      { title: 'do laundry', description: 'remember jeans', priority: 'high',
+        project: 'regular stuff' },
+      { title: 'wash car', description: 'nil', priority: 'low',
+        project: 'regular stuff' },
+      { title: 'buy beer', description: 'Kronenberg', priority: 'medium',
+        project: 'regular stuff' },
+      { title: 'research arrow functions', description: 'make notes and save links', priority: 'high',
+        project: 'write article' },
+      { title: 'write body of article', description: 'actually write the thing', priority: 'medium',
+        project: 'write article' },
+      { title: 'proofread article', description: 'check for errors and bad grammar', priority: 'low',
+        project: 'write article' },
+      { title: 'research IIFEs', description: 'what are they, and when are they used?', priority: 'medium',
+        project: 'write article' },
+      { title: 'todo with example really long title', description: 'for testing long strings', priority: 'medium',
+        project: 'project with really long title' }
+    ];
 
-  for (let i = 0; i < todosExamples.length; i++) {
-    todos.push(
-      todoFactory(uniqueId(), todosExamples[i].title, todosExamples[i].description,
-      todosExamples[i].priority, todosExamples[i].project
-    ));
-  }
+    for (let i = 0; i < todosExamples.length; i++) {
+      todos.push(
+        todoFactory(uniqueId(), todosExamples[i].title, todosExamples[i].description,
+        todosExamples[i].priority, todosExamples[i].project
+      ));
+    }
 
-  projects = ['regular stuff', 'write article', 'project with really long title'];
+    projects.push('regular stuff');
+    projects.push('write article');
+    projects.push('project with really long title');
+    // projects = ['regular stuff','write article' , 'project with really long title'];
+  };
 
   // DEBUG:
   const logTodos = () => {
@@ -78,7 +83,7 @@ const model = (() => {
     projects.splice(projects.indexOf(projects.find(e => e == project)), 1);
   };
 
-  return { todos, projects, deleteTodo, deleteProject, logTodos };
+  return { todos, projects, deleteTodo, deleteProject, initialize, logTodos };
 
 })();
 

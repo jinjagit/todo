@@ -1,12 +1,23 @@
-import { appRender } from './appRender'
 import { todosController } from './todosController'
-import { projectsController } from './projectsController'
 
 const todosRender = (() => {
+  const fitString = (string, width) => {
+    if (string.length * 12 > width) {
+      let remove = (Math.floor(width / 12) - 3) - string.length;
+      string = string.slice(0, remove).concat('...');
+    }
 
-  const index = (todos, project) => {
-    appRender.clearContent();
+    return string;
+  };
+
+  const index = (project) => {
+    project = project.slice(8);
+    let todos = todosController.index(project);
+    //appRender.clearContent();
     let content = document.getElementById('content');
+    while (content.firstChild) {
+        content.removeChild(content.firstChild);
+    }
     let titleW = content.offsetWidth - 56;
 
     for(let i = 0; i < todos.length; i++) {
@@ -26,7 +37,7 @@ const todosRender = (() => {
         removeTodo(this.id);
       });
       let title = document.createElement('h2');
-      title.innerHTML = appRender.fitString(todos[i].title, titleW);
+      title.innerHTML = fitString(todos[i].title, titleW);
       title.classList.add('title');
       content.appendChild(div);
       div.appendChild(checkbox);
@@ -47,24 +58,17 @@ const todosRender = (() => {
 
     // set navbar content & link to projects index
     let navMsg = document.getElementById('navMsg');
-    navMsg.innerHTML = appRender.fitString(
+    navMsg.innerHTML = fitString(
       project, document.getElementById('msgDiv').offsetWidth - 12
     );
-    let projectsBtn = document.getElementById('projectsBtn');
-    projectsBtn.classList.remove('eyeIcon');
-    projectsBtn.classList.add('foldersIcon');
-    projectsBtn.title = 'view projects';
-    projectsBtn.addEventListener("click", function() {
-      projectsController.index();
-    });
 
     document.body.onresize = function(){
-      navMsg.innerHTML = appRender.fitString(
+      navMsg.innerHTML = fitString(
         project, document.getElementById('msgDiv').offsetWidth - 12
       );
       let titles = document.getElementsByClassName('title');
       for (let i = 0; i < titles.length; i++) {
-        titles[i].innerHTML = appRender.fitString(
+        titles[i].innerHTML = fitString(
           todos[i].title, content.offsetWidth - 56
         );
       }

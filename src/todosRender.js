@@ -37,8 +37,8 @@ const todosRender = (() => {
     let addNew = document.createElement('div');
     addNew.id = 'addNew';
     addNew.addEventListener("click", function() {
-      addNew.style.display = 'none';
       form(this.id);
+      addNew.style.display = 'none';
     });
     let plusSign = document.createElement('p');
     plusSign.id = 'plusSign';
@@ -80,30 +80,96 @@ const todosRender = (() => {
 
   // ? will use parent elelment as param, not id, then find ids needed
   const form = (thisId) => {
+
     const addInput = (id) => {
       let label = document.createElement('h4');
       label.innerHTML = `${id}:`;
+      label.id = `${id}label`;
       let input = document.createElement('input');
-      input.type = 'text';
+      if (id == 'description') { input = document.createElement('textarea'); }
       input.id = `${id}`;
       todoForm.appendChild(label);
       todoForm.appendChild(input);
-    }
+    };
+
+    const addSelection = (type) => {
+      let options = ['high', 'medium', 'low'];
+      if (type == 'projects') { options = todosController.projects(); }
+      for (let i = 0; i < options.length; i++) {
+        let option = document.createElement('option');
+        option.value = options[i];
+        option.innerHTML = options[i];
+        if (options[i] == 'medium') { // or current project
+          option.setAttribute('selected', true);
+        }
+        if (type == 'projects') { projects.appendChild(option); }
+        else { priority.appendChild(option); }
+      }
+    };
+
+    const divColor = () => {
+      formDiv.classList.remove('lowForm');
+      formDiv.classList.remove('mediumForm');
+      formDiv.classList.remove('highForm');
+      formDiv.classList.add(`${priority.value}Form`);
+    };
+
+    const submit = () => {
+      let title = document.getElementById('title').value;
+      let description = document.getElementById('description').value;
+      let priority = document.getElementById('priority').value;
+      let project = document.getElementById('projects').value;
+      console.log(`title: ${title}, description: ${description}, priority: ${priority}, project: ${project}`);
+    };
 
     let content = document.getElementById('content');
+    let formDiv = document.createElement('div');
+    if (thisId == 'addNew') {
+      formDiv.classList.add('formDiv');
+      formDiv.classList.add('mediumForm');
+
+    } else { // use thisId to find element for form; clear it first
+
+    }
+
     let todoForm = document.createElement('form');
     addInput('title');
     addInput('description');
 
-    if (thisId == 'addNew') {
-      let formDiv = document.createElement('div');
-      formDiv.classList.add('formDiv');
-      formDiv.appendChild(todoForm);
-      content.appendChild(formDiv);
-    } else { // use thisId to find element for form; clear it first
+    let labelsDiv = document.createElement('div');
+    labelsDiv.classList.add('selectionDiv');
+    let priorityLabel = document.createElement('h4');
+    priorityLabel.id = 'priorityLabel';
+    priorityLabel.innerHTML = 'priority:';
+    let projectLabel = document.createElement('h4');
+    projectLabel.id = 'projectLabel';
+    projectLabel.innerHTML = 'project:';
+    let done = document.createElement('button');
+    done.type = 'button'; // prevents app reload
+    done.id = 'done';
+    done.innerHTML = 'done';
+    done.addEventListener("click", submit);
+    labelsDiv.appendChild(priorityLabel);
+    labelsDiv.appendChild(projectLabel);
+    labelsDiv.appendChild(done);
+    todoForm.appendChild(labelsDiv);
 
-    }
-  }
+    let selectionDiv = document.createElement('div');
+    selectionDiv.classList.add('selectionDiv');
+    let priority = document.createElement('select');
+    priority.id = 'priority';
+    addSelection('priority');
+    priority.addEventListener("click", divColor);
+    let projects = document.createElement('select');
+    projects.id = 'projects';
+    addSelection('projects');
+    selectionDiv.appendChild(priority);
+    selectionDiv.appendChild(projects);
+    todoForm.appendChild(selectionDiv);
+
+    formDiv.appendChild(todoForm);
+    content.appendChild(formDiv);
+  };
 
   return { index };
 

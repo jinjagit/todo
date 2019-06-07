@@ -27,7 +27,9 @@ const todosController = (() => {
     model.deleteTodo(thisId.slice(7));
   };
 
-  return { index, destroy };
+  const projects = () => model.projects;
+
+  return { index, destroy, projects };
 })();
 
 export { todosController }

@@ -102,7 +102,6 @@ const todosRender = (() => {
         if (options[i] == 'medium') { // or current project
           option.setAttribute('selected', true);
         }
-        option.addEventListener("click", divColor);
         if (type == 'projects') { projects.appendChild(option); }
         else { priority.appendChild(option); }
       }
@@ -160,7 +159,7 @@ const todosRender = (() => {
     let priority = document.createElement('select');
     priority.id = 'priority';
     addSelection('priority');
-    priority.addEventListener("click", divColor);
+    priority.addEventListener("change", divColor);
     let projects = document.createElement('select');
     projects.id = 'projects';
     addSelection('projects');

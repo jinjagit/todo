@@ -102,6 +102,7 @@ const todosRender = (() => {
         if (options[i] == 'medium') { // or current project
           option.setAttribute('selected', true);
         }
+        option.addEventListener("click", divColor);
         if (type == 'projects') { projects.appendChild(option); }
         else { priority.appendChild(option); }
       }

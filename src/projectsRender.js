@@ -1,12 +1,12 @@
 import { renderUtils } from './renderUtils'
-import { projectsController } from './projectsController'
+import { model } from './model'
 import { todosRender } from './todosRender'
 
 const projectsRender = (() => {
 
   const index = () => {
     renderUtils.clearContent();
-    let projects = projectsController.index();
+    let projects = model.projects;
     let content = document.getElementById('content');
     let navBtn = document.getElementById('navBtn');
     let titleW = content.offsetWidth - 56;
@@ -68,7 +68,7 @@ const projectsRender = (() => {
   const removeProject = (thisId) => {
     let id = thisId.slice(7);
     if (confirm(`Really delete project: ${id}\nand all todo items it contains?`) == true) {
-      projectsController.destroy(id);
+      model.deleteProject(id);
       let projectDiv = document.getElementById(`project_${id}`);
       projectDiv.parentNode.removeChild(projectDiv);
     }

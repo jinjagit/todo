@@ -54,6 +54,34 @@ const model = (() => {
 
   // C.R.U.D:
 
+  const indexTodos = (project) => {
+    const sortByPriority = (unsorted) => { // can probably move inside index()
+      let sorted = [], high = [], medium = [], low = [];
+      for (let i = 0; i < unsorted.length; i++) {
+        if (unsorted[i].priority == 'high') { high.push(unsorted[i]) }
+        else if (unsorted[i].priority == 'medium') { medium.push(unsorted[i]) }
+        else { low.push(unsorted[i]) }
+      }
+      return sorted = high.concat(medium.concat(low));
+    };
+
+    if (project == 'All to-do items') {
+      return sortByPriority(todos);
+    } else {
+      let projectTodos = [];
+      for (let i = 0; i < todos.length; i++) {
+        if (project == todos[i].project) { projectTodos.push(model.todos[i]); }
+      }
+      return sortByPriority(projectTodos);
+    }
+  };
+
+  const createTodo = (formData) => {
+    let errors = ['test'];
+    console.log(formData.title);
+    return errors;
+  };
+
   const deleteTodo = (id) => {
     todos.splice(todos.indexOf(todos.find(e => e.id == id)), 1);
   };
@@ -68,7 +96,7 @@ const model = (() => {
     projects.splice(projects.indexOf(projects.find(e => e == project)), 1);
   };
 
-  return { todos, projects, deleteTodo, deleteProject, initialize, logTodos };
+  return { todos, projects, indexTodos, createTodo, deleteTodo, deleteProject, initialize, logTodos };
 
 })();
 

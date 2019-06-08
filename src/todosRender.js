@@ -1,11 +1,11 @@
 import { renderUtils } from './renderUtils'
-import { todosController } from './todosController'
+import { model } from './model'
 
 const todosRender = (() => {
 
   const index = (project) => {
     project = project.slice(8);
-    let todos = todosController.index(project);
+    let todos = model.indexTodos(project);
     renderUtils.clearContent();
     let content = document.getElementById('content');
     let titleW = content.offsetWidth - 56;
@@ -23,7 +23,7 @@ const todosRender = (() => {
       checkbox.id = `delete_${todos[i].id}`;
       checkbox.addEventListener("click", function(e) {
         e.stopPropagation();
-        todosController.destroy(this.id);
+        model.deleteTodo(this.id.slice(7));
         removeTodo(this.id);
       });
       let title = document.createElement('h2');
@@ -37,7 +37,7 @@ const todosRender = (() => {
     let addNew = document.createElement('div');
     addNew.id = 'addNew';
     addNew.addEventListener("click", function() {
-      form(this.id);
+      form(this.id, project);
       addNew.style.display = 'none';
     });
     let plusSign = document.createElement('p');
@@ -79,7 +79,7 @@ const todosRender = (() => {
   };
 
   // ? will use parent elelment as param, not id, then find ids needed
-  const form = (thisId) => {
+  const form = (thisId, thisProject) => {
 
     const addInput = (id) => {
       let label = document.createElement('h4');
@@ -94,7 +94,7 @@ const todosRender = (() => {
 
     const addSelection = (type) => {
       let options = ['high', 'medium', 'low'];
-      if (type == 'projects') { options = todosController.projects(); }
+      if (type == 'projects') { options = model.projects; }
       for (let i = 0; i < options.length; i++) {
         let option = document.createElement('option');
         option.value = options[i];
@@ -115,11 +115,19 @@ const todosRender = (() => {
     };
 
     const submit = () => {
-      let title = document.getElementById('title').value;
-      let description = document.getElementById('description').value;
-      let priority = document.getElementById('priority').value;
-      let project = document.getElementById('projects').value;
-      console.log(`title: ${title}, description: ${description}, priority: ${priority}, project: ${project}`);
+      let data = {
+        title: document.getElementById('title').value,
+        description: document.getElementById('description').value,
+        priority: document.getElementById('priority').value,
+        project: document.getElementById('projects').value
+      }
+      let errors = model.createTodo(data);
+      if (errors = ['test']) {
+        while (content.formDiv) {
+          content.removeChild(content.formDiv);
+        }
+        index(`project_${thisProject}`);
+      }
     };
 
     let content = document.getElementById('content');
@@ -145,7 +153,7 @@ const todosRender = (() => {
     projectLabel.id = 'projectLabel';
     projectLabel.innerHTML = 'project:';
     let done = document.createElement('button');
-    done.type = 'button'; // prevents app reload
+    done.type = 'button'; // prevents app reload on click
     done.id = 'done';
     done.innerHTML = 'done';
     done.addEventListener("click", submit);

@@ -122,11 +122,17 @@ const todosRender = (() => {
         project: document.getElementById('projects').value
       }
       let errors = model.createTodo(data);
-      if (errors = ['test']) {
+      if (errors.length == 0) {
         while (content.formDiv) {
           content.removeChild(content.formDiv);
         }
         index(`project_${thisProject}`);
+      } else {
+        let message = 'SAVE FAILED!';
+        for (let i = 0; i < errors.length; i ++) {
+          message += `\n* ${errors[i]}`;
+        }
+        alert(message);
       }
     };
 

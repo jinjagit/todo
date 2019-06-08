@@ -44,6 +44,26 @@ const model = (() => {
     }
   };
 
+  const validateTodo = (data) => {
+    let errors = [];
+    if (data.title == '') { errors.push('title cannot be blank'); }
+    else if (data.title.length > 64) {
+      errors.push('title cannot contain more than 64 characters');
+    }
+    if (data.description.length > 256) {
+      errors.push('description cannot contain more than 256 characters');
+    }
+
+    let projectTodos = indexTodos(data.project);
+    for (let i = 0; i < projectTodos.length; i++) {
+      if (projectTodos[i].title == data.title) {
+        errors.push('title cannot match existing todo item title in same project')
+      }
+    }
+
+    return errors;
+  };
+
   // DEBUG:
   const logTodos = () => {
     console.log('----------');
@@ -77,8 +97,16 @@ const model = (() => {
   };
 
   const createTodo = (formData) => {
-    let errors = ['test'];
-    console.log(formData.title);
+    let errors = validateTodo(formData);
+    if (errors.length == 0) {
+      todos.push(
+        todoFactory(uniqueId(), formData.title, formData.description,
+        formData.priority, formData.project
+      ));
+    } else {
+      console.log(`errors: ${errors}`);
+    }
+
     return errors;
   };
 

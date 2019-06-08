@@ -23,8 +23,8 @@ const model = (() => {
     const setProject = newProject => project = newProject;
 
     return {
-      id, title, description, priority, project,
-      setTitle, setDescription, setPriority, setProject, output
+      id, title, description, priority, project, setTitle, setDescription,
+      setPriority, setProject, output
     };
   };
 
@@ -55,12 +55,16 @@ const model = (() => {
     }
 
     if (edit == false) {
-      let projectTodos = indexTodos(data.project);
-      for (let i = 0; i < projectTodos.length; i++) {
-        if (projectTodos[i].title == data.title) {
-          errors.push(
-            'title cannot match existing todo item title in same project'
-          )
+      if (data.title == '' && data.description == '') {
+        errors = ['nothing to save'];
+      } else {
+        let projectTodos = indexTodos(data.project);
+        for (let i = 0; i < projectTodos.length; i++) {
+          if (projectTodos[i].title.toLowerCase() == data.title.toLowerCase()) {
+            errors.push(
+              'title cannot match existing todo item title in same project'
+            )
+          }
         }
       }
     }
@@ -79,7 +83,7 @@ const model = (() => {
   // C.R.U.D:
 
   const indexTodos = (project) => {
-    const sortByPriority = (unsorted) => { // can probably move inside index()
+    const sortByPriority = (unsorted) => {
       let sorted = [], high = [], medium = [], low = [];
       for (let i = 0; i < unsorted.length; i++) {
         if (unsorted[i].priority == 'high') { high.push(unsorted[i]) }
@@ -107,8 +111,6 @@ const model = (() => {
         todoFactory(uniqueId(), formData.title, formData.description,
         formData.priority, formData.project
       ));
-    } else {
-      console.log(`errors: ${errors}`);
     }
 
     return errors;
@@ -128,7 +130,10 @@ const model = (() => {
     projects.splice(projects.indexOf(projects.find(e => e == project)), 1);
   };
 
-  return { todos, projects, indexTodos, createTodo, deleteTodo, deleteProject, initialize, logTodos };
+  return {
+    todos, projects, indexTodos, createTodo, deleteTodo, deleteProject,
+    initialize, logTodos
+  };
 
 })();
 

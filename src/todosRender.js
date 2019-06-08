@@ -3,11 +3,13 @@ import { model } from './model'
 
 const todosRender = (() => {
 
+  let content = document.getElementById('content');
+
   const index = (project) => {
     project = project.slice(8);
     let todos = model.indexTodos(project);
     renderUtils.clearContent();
-    let content = document.getElementById('content');
+
     let titleW = content.offsetWidth - 56;
 
     for(let i = 0; i < todos.length; i++) {
@@ -99,7 +101,7 @@ const todosRender = (() => {
         let option = document.createElement('option');
         option.value = options[i];
         option.innerHTML = options[i];
-        if (options[i] == 'medium') { // or current project
+        if (options[i] == 'medium' || options[i] == thisProject) {
           option.setAttribute('selected', true);
         }
         if (type == 'projects') { projects.appendChild(option); }
@@ -121,22 +123,25 @@ const todosRender = (() => {
         priority: document.getElementById('priority').value,
         project: document.getElementById('projects').value
       }
-      let errors = model.createTodo(data);
-      if (errors.length == 0) {
-        while (content.formDiv) {
-          content.removeChild(content.formDiv);
+
+      if ((thisProject == data.project || thisProject == 'All to-do items') ||
+          confirm(`Really save to other project: ${data.project}?`) == true) {
+        let errors = model.createTodo(data);
+        if (errors.length == 0 || errors[0] == 'nothing to save' ) {
+          while (content.formDiv) {
+            content.removeChild(content.formDiv);
+          }
+          index(`project_${thisProject}`);
+        } else {
+          let message = 'SAVE FAILED!';
+          for (let i = 0; i < errors.length; i ++) {
+            message += `\n* ${errors[i]}`;
+          }
+          alert(message);
         }
-        index(`project_${thisProject}`);
-      } else {
-        let message = 'SAVE FAILED!';
-        for (let i = 0; i < errors.length; i ++) {
-          message += `\n* ${errors[i]}`;
-        }
-        alert(message);
       }
     };
 
-    let content = document.getElementById('content');
     let formDiv = document.createElement('div');
     if (thisId == 'addNew') {
       formDiv.classList.add('formDiv');

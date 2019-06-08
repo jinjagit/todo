@@ -4,10 +4,11 @@ import { todosRender } from './todosRender'
 
 const projectsRender = (() => {
 
+  let content = document.getElementById('content');
+
   const index = () => {
     renderUtils.clearContent();
     let projects = model.projects;
-    let content = document.getElementById('content');
     let navBtn = document.getElementById('navBtn');
     let titleW = content.offsetWidth - 56;
 
@@ -40,7 +41,8 @@ const projectsRender = (() => {
     let addNew = document.createElement('div');
     addNew.id = 'addNew';
     addNew.addEventListener("click", function() {
-      form(this.id);
+      form();
+      addNew.style.display = 'none';
     });
     let plusSign = document.createElement('p');
     plusSign.id = 'plusSign';
@@ -74,9 +76,28 @@ const projectsRender = (() => {
     }
   };
 
-  // ? will use parent elelment as param, not id, then find ids needed
-  const form = (thisId) => {
-    console.log(thisId);
+  const form = () => {
+    let formDiv = document.createElement('div');
+    formDiv.classList.add('formDiv');
+    formDiv.id = 'projectForm';
+    let projectForm = document.createElement('form');
+    let label = document.createElement('h4');
+    label.innerHTML = 'title:';
+    label.id = 'projectTitle';
+    let input = document.createElement('input');
+    input.id = 'projectTitle';
+    projectForm.appendChild(label);
+    projectForm.appendChild(input);
+
+    let addProject = document.createElement('button');
+    addProject.type = 'button'; // prevents app reload on click
+    addProject.id = 'addProject';
+    addProject.innerHTML = 'done';
+    //addProject.addEventListener("click", submit);
+    projectForm.appendChild(addProject);
+
+    formDiv.appendChild(projectForm);
+    content.appendChild(formDiv);
   };
 
   return { index };

@@ -65,10 +65,8 @@ textarea {
 
 button {
   display: block;
-  float: right;
   width: 60px;
   height: 30px;
-  margin: 5px -4px 0 0;
   border-radius: 7px;
   border-color: #ccc;
   border-style: solid;
@@ -320,4 +318,27 @@ select {
   width: calc(100% - 2px);
   height: 2em;
   resize: none;
+}
+
+#done {
+  float: right;
+  margin: 5px -4px 0 0;
+}
+
+#projectForm {
+  background-color: #ccc;
+}
+
+#projectTitle {
+  float: left;
+}
+
+#btnDiv {
+  display: block;
+  width: 100%;
+}
+
+#addProject {
+  border-color: #aaa;
+  margin-left: calc(50% - 30px);
 }

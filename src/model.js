@@ -63,8 +63,24 @@ const model = (() => {
           if (projectTodos[i].title.toLowerCase() == data.title.toLowerCase()) {
             errors.push(
               'title cannot match existing todo item title in same project'
-            )
+            );
           }
+        }
+      }
+    }
+
+    return errors;
+  };
+
+  const validateProject = (newProject) => {
+    let errors = [];
+    if (newProject == '') { errors.push('nothing to save'); }
+    else if (newProject.length > 46) {
+      errors.push('title cannot contain more than 46 characters');
+    } else {
+      for (let i = 0; i < projects.length; i++) {
+        if (newProject.toLowerCase() == projects[i].toLowerCase()) {
+          errors.push('title cannot match existing project title');
         }
       }
     }
@@ -120,6 +136,13 @@ const model = (() => {
     todos.splice(todos.indexOf(todos.find(e => e.id == id)), 1);
   };
 
+  const createProject = (newProject) => {
+    let errors = validateProject(newProject);
+    if (errors.length == 0) { projects.push(newProject); }
+
+    return errors;
+  };
+
   const deleteProject = (project) => {
     for (let i = 0; i < todos.length; i++) {
       if (todos[i].project == project) {
@@ -131,8 +154,8 @@ const model = (() => {
   };
 
   return {
-    todos, projects, indexTodos, createTodo, deleteTodo, deleteProject,
-    initialize, logTodos
+    todos, projects, indexTodos, createTodo, deleteTodo, createProject,
+    deleteProject, initialize, logTodos
   };
 
 })();

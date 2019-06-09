@@ -77,6 +77,20 @@ const projectsRender = (() => {
   };
 
   const form = () => {
+    const submit = () => {
+      let project = input.value;
+      console.log(project);
+      let errors = model.createProject(project);
+      if (errors.length == 0) {
+        index();
+      } else if (errors[0] == 'nothing to save') {
+        content.removeChild(formDiv);
+        addNew.style.display = 'block';
+      } else {
+        alert(`SAVE FAILED!\n* ${errors[0]}`);
+      }
+    };
+
     let formDiv = document.createElement('div');
     formDiv.classList.add('formDiv');
     formDiv.id = 'projectForm';
@@ -93,7 +107,7 @@ const projectsRender = (() => {
     addProject.type = 'button'; // prevents app reload on click
     addProject.id = 'addProject';
     addProject.innerHTML = 'done';
-    //addProject.addEventListener("click", submit);
+    addProject.addEventListener("click", submit);
     projectForm.appendChild(addProject);
 
     formDiv.appendChild(projectForm);

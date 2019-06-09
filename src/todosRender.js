@@ -128,10 +128,12 @@ const todosRender = (() => {
           confirm(`Really save to other project: ${data.project}?`) == true) {
         let errors = model.createTodo(data);
         if (errors.length == 0 || errors[0] == 'nothing to save' ) {
-          while (content.formDiv) {
-            content.removeChild(content.formDiv);
+          if (errors[0] == 'nothing to save') {
+            if (thisId == 'addNew') { content.removeChild(formDiv); }
+            addNew.style.display = 'block';
+          } else {
+            index(`project_${thisProject}`);
           }
-          index(`project_${thisProject}`);
         } else {
           let message = 'SAVE FAILED!';
           for (let i = 0; i < errors.length; i ++) {

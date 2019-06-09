@@ -44,20 +44,20 @@ const model = (() => {
     }
   };
 
-  const validateTodo = (data, edit = false) => {
+  const validateTodo = (data, editId = false) => {
     let errors = [];
-    if (data.title == '') { errors.push('title cannot be blank'); }
-    else if (data.title.length > 64) {
-      errors.push('title cannot contain more than 64 characters');
-    }
-    if (data.description.length > 256) {
-      errors.push('description cannot contain more than 256 characters');
-    }
 
-    if (edit == false) {
-      if (data.title == '' && data.description == '') {
-        errors = ['nothing to save'];
-      } else {
+    if ((editId == false && (data.title == '' && data.description == '')) ||
+        (editId != false && todos[editId].title == data.title &&
+          todos[editId].description == data.description &&
+          todos[editId].priority == data.priority &&
+          todos[editId].project == data.project)) {
+      errors = ['nothing to save'];
+    } else {
+      if (data.title == '') { errors.push('title cannot be blank'); }
+      else if (data.title.length > 64) {
+        errors.push('title cannot contain more than 64 characters');
+      } else if (editId == false) {
         let projectTodos = indexTodos(data.project);
         for (let i = 0; i < projectTodos.length; i++) {
           if (projectTodos[i].title.toLowerCase() == data.title.toLowerCase()) {
@@ -66,6 +66,10 @@ const model = (() => {
             );
           }
         }
+      }
+
+      if (data.description.length > 256) {
+        errors.push('description cannot contain more than 256 characters');
       }
     }
 
@@ -132,6 +136,12 @@ const model = (() => {
     return errors;
   };
 
+  const getTodo = (id) => {
+    for (let i = 0; i < todos.length; i++) {
+      if (todos[i].id == id) { return todos[i];}
+    }
+  };
+
   const deleteTodo = (id) => {
     todos.splice(todos.indexOf(todos.find(e => e.id == id)), 1);
   };
@@ -154,7 +164,7 @@ const model = (() => {
   };
 
   return {
-    todos, projects, indexTodos, createTodo, deleteTodo, createProject,
+    todos, projects, indexTodos, createTodo, getTodo, deleteTodo, createProject,
     deleteProject, initialize, logTodos
   };
 

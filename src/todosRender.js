@@ -6,11 +6,23 @@ const todosRender = (() => {
   let content = document.getElementById('content');
 
   const index = (project) => {
+    const edit = (thisId, project) => {
+      form(thisId, project);
+      addNew.style.display = 'none';
+      formDiv.style.display = 'none';
+    };
+
     project = project.slice(8);
     let todos = model.indexTodos(project);
     renderUtils.clearContent();
 
     let titleW = content.offsetWidth - 56;
+
+    let formDiv = document.createElement('div');
+    formDiv.classList.add('formDiv');
+    formDiv.classList.add('mediumForm');
+    formDiv.id = 'formDiv';
+    formDiv.style.display = 'none';
 
     for(let i = 0; i < todos.length; i++) {
       let div = document.createElement('div');
@@ -18,7 +30,7 @@ const todosRender = (() => {
       div.classList.add(`${todos[i].priority}Div`);
       div.id = `${todos[i].id}`;
       div.addEventListener("click", function() {
-        console.log(`clicked div: ${this.id}`);
+        edit(this.id, project);
       });
       let checkbox = document.createElement('div');
       checkbox.classList.add('checkbox');
@@ -31,9 +43,10 @@ const todosRender = (() => {
       let title = document.createElement('h2');
       title.innerHTML = renderUtils.fitString(todos[i].title, titleW);
       title.classList.add('title');
-      content.appendChild(div);
+      title.id = `title_${todos[i].id}`;
       div.appendChild(checkbox);
       div.appendChild(title);
+      content.appendChild(div);
     }
 
     let addNew = document.createElement('div');
@@ -47,6 +60,8 @@ const todosRender = (() => {
     plusSign.innerHTML = '+';
     addNew.appendChild(plusSign);
     content.appendChild(addNew);
+
+    content.appendChild(formDiv);
 
     // set navbar navbar message
     let navMsg = document.getElementById('navMsg');
@@ -89,13 +104,17 @@ const todosRender = (() => {
       let input = document.createElement('input');
       if (id == 'description') { input = document.createElement('textarea'); }
       input.id = `${id}`;
+      if (thisId != 'addNew') {
+        input.value = model.getTodo(thisId)[`${id}`];
+      }
+
       todoForm.appendChild(label);
       todoForm.appendChild(input);
     };
 
     const addSelection = (type) => {
       let options = ['high', 'medium', 'low'];
-      if (type == 'projects') { options = model.projects; }
+      if (type == 'project') { options = model.projects; }
       for (let i = 0; i < options.length; i++) {
         let option = document.createElement('option');
         option.value = options[i];
@@ -103,7 +122,7 @@ const todosRender = (() => {
         if (options[i] == 'medium' || options[i] == thisProject) {
           option.setAttribute('selected', true);
         }
-        if (type == 'projects') { projects.appendChild(option); }
+        if (type == 'project') { projects.appendChild(option); }
         else { priority.appendChild(option); }
       }
     };
@@ -128,7 +147,10 @@ const todosRender = (() => {
         let errors = model.createTodo(data);
         if (errors.length == 0 || errors[0] == 'nothing to save' ) {
           if (errors[0] == 'nothing to save') {
-            if (thisId == 'addNew') { content.removeChild(formDiv); }
+            if (thisId == 'addNew') {
+              formDiv.removeChild(todoForm);
+              formDiv.style.display = 'none';
+            }
             addNew.style.display = 'block';
           } else {
             index(`project_${thisProject}`);
@@ -142,15 +164,6 @@ const todosRender = (() => {
         }
       }
     };
-
-    let formDiv = document.createElement('div');
-    if (thisId == 'addNew') {
-      formDiv.classList.add('formDiv');
-      formDiv.classList.add('mediumForm');
-
-    } else { // use thisId to find element for form; clear it first
-
-    }
 
     let todoForm = document.createElement('form');
     addInput('title');
@@ -187,13 +200,27 @@ const todosRender = (() => {
 
     let projects = document.createElement('select');
     projects.id = 'projects';
-    addSelection('projects');
+    addSelection('project');
     selectionDiv.appendChild(projects);
 
     todoForm.appendChild(selectionDiv);
 
-    formDiv.appendChild(todoForm);
-    content.appendChild(formDiv);
+    let thisDiv = document.getElementById('formDiv');
+
+    if (thisId != 'addNew') { // insert 'edit' form at todo item position
+      thisDiv = document.getElementById(thisId);
+      thisDiv.addEventListener('click', function (event) {
+        event.stopPropagation();
+      }, true);
+      thisDiv.classList.remove('itemDiv');
+      thisDiv.classList.remove(`${thisId.priority}Div`);
+      thisDiv.classList.add('formDiv');
+      document.getElementById(`delete_${thisId}`).style.display = 'none';
+      document.getElementById(`title_${thisId}`).style.display = 'none';
+    }
+
+    thisDiv.appendChild(todoForm);
+    thisDiv.style.display = 'block';
   };
 
   return { index };

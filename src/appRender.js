@@ -44,28 +44,6 @@ const appRender = (() => {
     todosRender.index('project_All to-do items');
   };
 
-
-
-
-
-
-  // declare functions to common to todosRender and projectsRender modules:
-  /*
-  const clearContent = () => {
-    while (content.firstChild) {
-        content.removeChild(content.firstChild);
-    }
-  };
-  */
-
-
-
-
-  // ----------- extras -----------------
-
-
-
-
   // DEBUG: create content taller than page to test scroll effects
   const placeholderContent = () => {
     let content = document.getElementById('content');
@@ -83,9 +61,6 @@ const appRender = (() => {
 
     window.dispatchEvent(new Event('resize'));
   };
-
-
-
 
   return { initialize, placeholderContent };
 

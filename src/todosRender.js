@@ -82,7 +82,6 @@ const todosRender = (() => {
 
   // ? will use parent elelment as param, not id, then find ids needed
   const form = (thisId, thisProject) => {
-
     const addInput = (id) => {
       let label = document.createElement('h4');
       label.innerHTML = `${id}:`;
@@ -162,17 +161,20 @@ const todosRender = (() => {
     let priorityLabel = document.createElement('h4');
     priorityLabel.id = 'priorityLabel';
     priorityLabel.innerHTML = 'priority:';
+    labelsDiv.appendChild(priorityLabel);
+
     let projectLabel = document.createElement('h4');
     projectLabel.id = 'projectLabel';
     projectLabel.innerHTML = 'project:';
+    labelsDiv.appendChild(projectLabel);
+
     let done = document.createElement('button');
     done.type = 'button'; // prevents app reload on click
     done.id = 'done';
     done.innerHTML = 'done';
     done.addEventListener("click", submit);
-    labelsDiv.appendChild(priorityLabel);
-    labelsDiv.appendChild(projectLabel);
     labelsDiv.appendChild(done);
+
     todoForm.appendChild(labelsDiv);
 
     let selectionDiv = document.createElement('div');
@@ -181,11 +183,13 @@ const todosRender = (() => {
     priority.id = 'priority';
     addSelection('priority');
     priority.addEventListener("change", divColor);
+    selectionDiv.appendChild(priority);
+
     let projects = document.createElement('select');
     projects.id = 'projects';
     addSelection('projects');
-    selectionDiv.appendChild(priority);
     selectionDiv.appendChild(projects);
+
     todoForm.appendChild(selectionDiv);
 
     formDiv.appendChild(todoForm);

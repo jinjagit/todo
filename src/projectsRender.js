@@ -69,7 +69,7 @@ const projectsRender = (() => {
 
   const removeProject = (thisId) => {
     let id = thisId.slice(7);
-    if (confirm(`Really delete project: ${id}\nand all todo items it contains?`) == true) {
+    if (confirm(`Really delete project: ${id}\nAND any todo items it contains?`) == true) {
       model.deleteProject(id);
       let projectDiv = document.getElementById(`project_${id}`);
       projectDiv.parentNode.removeChild(projectDiv);
@@ -79,7 +79,6 @@ const projectsRender = (() => {
   const form = () => {
     const submit = () => {
       let project = input.value;
-      console.log(project);
       let errors = model.createProject(project);
       if (errors.length == 0) {
         index();

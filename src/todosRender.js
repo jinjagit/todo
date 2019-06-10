@@ -2,27 +2,21 @@ import { renderUtils } from './renderUtils'
 import { model } from './model'
 
 const todosRender = (() => {
-
   let content = document.getElementById('content');
 
   const index = (project) => {
-    const edit = (thisId, project) => {
-      form(thisId, project);
-    };
-
     project = project.slice(8);
     let todos = model.indexTodos(project);
     renderUtils.clearContent();
 
     let titleW = content.offsetWidth - 56;
-
     let formDiv = document.createElement('div');
     formDiv.classList.add('formDiv');
     formDiv.classList.add('mediumForm');
     formDiv.id = 'formDiv';
     formDiv.style.display = 'none';
 
-    for(let i = 0; i < todos.length; i++) {
+    for(let i = 0; i < todos.length; i++) { // add todo items
       let div = document.createElement('div');
       div.classList.add('itemDiv');
       div.classList.add(`${todos[i].priority}Div`);
@@ -30,7 +24,7 @@ const todosRender = (() => {
       div.addEventListener("click", function() {
         let children = [].slice.call(div.children);
         if (children.join().includes('[object HTMLFormElement]') == false) {
-          edit(this.id, project);
+          form(this.id, project);
         }
       });
       let checkbox = document.createElement('div');
@@ -61,7 +55,6 @@ const todosRender = (() => {
     plusSign.innerHTML = '+';
     addNew.appendChild(plusSign);
     content.appendChild(addNew);
-
     content.appendChild(formDiv);
 
     // set navbar navbar message
@@ -96,20 +89,17 @@ const todosRender = (() => {
     }, 300);
   };
 
-  // ? will use parent elelment as param, not id, then find ids needed
   const form = (thisId, thisProject) => {
-    const addInput = (id) => {
+    const addInput = (name) => {
       let label = document.createElement('h4');
-      label.innerHTML = `${id}:`;
+      label.innerHTML = `${name}:`;
       let input = document.createElement('input');
-      if (id == 'description') {
+      if (name == 'description') {
         input = document.createElement('textarea');
-        input.classList.add(`${id}`);
+        input.classList.add(`${name}`);
       }
-      input.id = `${id}${thisId}`;
-      if (thisId != 'addNew') {
-        input.value = model.getTodo(thisId)[`${id}`];
-      }
+      input.id = `${name}${thisId}`;
+      if (thisId != 'addNew') { input.value = model.getTodo(thisId)[`${name}`]; }
 
       todoForm.appendChild(label);
       todoForm.appendChild(input);
@@ -150,17 +140,13 @@ const todosRender = (() => {
         project: document.getElementById(`projects${thisId}`).value
       }
 
-      console.log(data);
+      console.log(data); // DEBUG
 
       if ((thisProject == data.project || thisProject == 'All to-do items') ||
           confirm(`Really save to other project: ${data.project}?`) == true) {
         let errors = [];
-
         if (thisId == 'addNew') { errors = model.createTodo(data); }
-        else {
-
-          errors = model.editTodo(data, thisId);
-        }
+        else { errors = model.editTodo(data, thisId); }
 
         if (errors[0] == 'nothing to save') {
           formDiv.removeChild(todoForm);
@@ -197,19 +183,15 @@ const todosRender = (() => {
     priorityLabel.classList.add('priorityLabel');
     priorityLabel.innerHTML = 'priority:';
     labelsDiv.appendChild(priorityLabel);
-
     let projectLabel = document.createElement('h4');
     projectLabel.classList.add('projectLabel');
     projectLabel.innerHTML = 'project:';
     labelsDiv.appendChild(projectLabel);
-
     let done = document.createElement('button');
     done.type = 'button'; // prevents app reload on click
     done.classList.add('done');
     done.innerHTML = 'done';
-
     labelsDiv.appendChild(done);
-
     todoForm.appendChild(labelsDiv);
 
     let selectionDiv = document.createElement('div');
@@ -218,19 +200,15 @@ const todosRender = (() => {
     priority.classList.add('priority');
     priority.id = `priority${thisId}`;
     addSelection('priority');
-
     selectionDiv.appendChild(priority);
-
     let projects = document.createElement('select');
     projects.classList.add('projects');
     projects.id = `projects${thisId}`;
     addSelection('project');
     selectionDiv.appendChild(projects);
-
     todoForm.appendChild(selectionDiv);
 
     let thisDiv = document.getElementById('formDiv');
-
     if (thisId != 'addNew') { // insert 'edit' form at todo item position
       thisDiv = document.getElementById(thisId);
       thisDiv.removeEventListener("click", function() {

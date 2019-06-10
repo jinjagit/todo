@@ -57,10 +57,12 @@ input {
   width: 100%;
   margin-bottom: 3px;
   font-family: 'Ubuntu', sans-serif;
+  font-size: 14px;
 }
 
 textarea {
   font-family: 'Ubuntu', sans-serif;
+  font-size: 14px;
 }
 
 button {
@@ -298,18 +300,18 @@ select {
 
 .projectLabel {
   float: left;
-  margin-left: 33px;
+  margin-left: 41px;
 }
 
 .priority {
-  width: 70px;
+  width: 80px;
   float: left;
   margin-top: -2px;
 }
 
 .projects {
-  width: calc(100% - 150px);
-  margin-left: 14px;
+  width: calc(100% - 160px);
+  margin-left: 12px;
   float: left;
   margin-top: -2px;
 }

@@ -3,7 +3,7 @@ const exampleData = (() => {
   let todos = [
     { title: 'do laundry', description: 'remember jeans',
       priority: 'high', project: 'regular stuff' },
-    { title: 'wash car', description: 'nil',
+    { title: 'wash car', description: '',
       priority: 'low', project: 'regular stuff' },
     { title: 'buy beer', description: 'Kronenberg',
       priority: 'medium', project: 'regular stuff' },

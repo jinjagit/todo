@@ -8,8 +8,6 @@ const todosRender = (() => {
   const index = (project) => {
     const edit = (thisId, project) => {
       form(thisId, project);
-      addNew.style.display = 'none';
-      formDiv.style.display = 'none';
     };
 
     project = project.slice(8);
@@ -30,7 +28,10 @@ const todosRender = (() => {
       div.classList.add(`${todos[i].priority}Div`);
       div.id = `${todos[i].id}`;
       div.addEventListener("click", function() {
-        edit(this.id, project);
+        let children = [].slice.call(div.children);
+        if (children.join().includes('[object HTMLFormElement]') == false) {
+          edit(this.id, project);
+        }
       });
       let checkbox = document.createElement('div');
       checkbox.classList.add('checkbox');
@@ -100,10 +101,12 @@ const todosRender = (() => {
     const addInput = (id) => {
       let label = document.createElement('h4');
       label.innerHTML = `${id}:`;
-      label.id = `${id}label`;
       let input = document.createElement('input');
-      if (id == 'description') { input = document.createElement('textarea'); }
-      input.id = `${id}`;
+      if (id == 'description') {
+        input = document.createElement('textarea');
+        input.classList.add(`${id}`);
+      }
+      input.id = `${id}${thisId}`;
       if (thisId != 'addNew') {
         input.value = model.getTodo(thisId)[`${id}`];
       }
@@ -119,7 +122,12 @@ const todosRender = (() => {
         let option = document.createElement('option');
         option.value = options[i];
         option.innerHTML = options[i];
-        if (options[i] == 'medium' || options[i] == thisProject) {
+        if (thisId == 'addNew') {
+          if (options[i] == 'medium' || options[i] == thisProject) {
+          option.setAttribute('selected', true);
+          }
+        } else if ((options[i] == model.getTodo(thisId).priority) ||
+                    (options[i] == model.getTodo(thisId).project)) {
           option.setAttribute('selected', true);
         }
         if (type == 'project') { projects.appendChild(option); }
@@ -127,34 +135,47 @@ const todosRender = (() => {
       }
     };
 
-    const divColor = () => {
-      formDiv.classList.remove('lowForm');
-      formDiv.classList.remove('mediumForm');
-      formDiv.classList.remove('highForm');
-      formDiv.classList.add(`${priority.value}Form`);
+    const divColor = (thisDiv) => {
+      thisDiv.classList.remove('lowForm');
+      thisDiv.classList.remove('mediumForm');
+      thisDiv.classList.remove('highForm');
+      thisDiv.classList.add(`${priority.value}Form`);
     };
 
     const submit = () => {
       let data = {
-        title: document.getElementById('title').value,
-        description: document.getElementById('description').value,
-        priority: document.getElementById('priority').value,
-        project: document.getElementById('projects').value
+        title: document.getElementById(`title${thisId}`).value,
+        description: document.getElementById(`description${thisId}`).value,
+        priority: document.getElementById(`priority${thisId}`).value,
+        project: document.getElementById(`projects${thisId}`).value
       }
+
+      console.log(data);
 
       if ((thisProject == data.project || thisProject == 'All to-do items') ||
           confirm(`Really save to other project: ${data.project}?`) == true) {
-        let errors = model.createTodo(data);
-        if (errors.length == 0 || errors[0] == 'nothing to save' ) {
-          if (errors[0] == 'nothing to save') {
-            if (thisId == 'addNew') {
-              formDiv.removeChild(todoForm);
-              formDiv.style.display = 'none';
-            }
-            addNew.style.display = 'block';
-          } else {
-            index(`project_${thisProject}`);
-          }
+        let errors = [];
+
+        if (thisId == 'addNew') { errors = model.createTodo(data); }
+        else {
+
+          errors = model.editTodo(data, thisId);
+        }
+
+        if (errors[0] == 'nothing to save') {
+          formDiv.removeChild(todoForm);
+          formDiv.style.display = 'none';
+          addNew.style.display = 'block';
+        } else if (errors[0] == 'unmoved') {
+          setTimeout(function(){ thisDiv.removeChild(todoForm); }, 10);
+          thisDiv.classList.remove('formDiv');
+          thisDiv.classList.remove(`${model.getTodo(thisId).priority}Form`);
+          thisDiv.classList.add('itemDiv');
+          thisDiv.classList.add(`${model.getTodo(thisId).priority}Div`);
+          document.getElementById(`delete_${thisId}`).style.display = 'block';
+          document.getElementById(`title_${thisId}`).style.display = 'block';
+        } else if (errors.length == 0) {
+          index(`project_${thisProject}`);
         } else {
           let message = 'SAVE FAILED!';
           for (let i = 0; i < errors.length; i ++) {
@@ -166,26 +187,27 @@ const todosRender = (() => {
     };
 
     let todoForm = document.createElement('form');
+    todoForm.id = `form${thisId}`;
     addInput('title');
     addInput('description');
 
     let labelsDiv = document.createElement('div');
     labelsDiv.classList.add('selectionDiv');
     let priorityLabel = document.createElement('h4');
-    priorityLabel.id = 'priorityLabel';
+    priorityLabel.classList.add('priorityLabel');
     priorityLabel.innerHTML = 'priority:';
     labelsDiv.appendChild(priorityLabel);
 
     let projectLabel = document.createElement('h4');
-    projectLabel.id = 'projectLabel';
+    projectLabel.classList.add('projectLabel');
     projectLabel.innerHTML = 'project:';
     labelsDiv.appendChild(projectLabel);
 
     let done = document.createElement('button');
     done.type = 'button'; // prevents app reload on click
-    done.id = 'done';
+    done.classList.add('done');
     done.innerHTML = 'done';
-    done.addEventListener("click", submit);
+
     labelsDiv.appendChild(done);
 
     todoForm.appendChild(labelsDiv);
@@ -193,13 +215,15 @@ const todosRender = (() => {
     let selectionDiv = document.createElement('div');
     selectionDiv.classList.add('selectionDiv');
     let priority = document.createElement('select');
-    priority.id = 'priority';
+    priority.classList.add('priority');
+    priority.id = `priority${thisId}`;
     addSelection('priority');
-    priority.addEventListener("change", divColor);
+
     selectionDiv.appendChild(priority);
 
     let projects = document.createElement('select');
-    projects.id = 'projects';
+    projects.classList.add('projects');
+    projects.id = `projects${thisId}`;
     addSelection('project');
     selectionDiv.appendChild(projects);
 
@@ -209,16 +233,19 @@ const todosRender = (() => {
 
     if (thisId != 'addNew') { // insert 'edit' form at todo item position
       thisDiv = document.getElementById(thisId);
-      thisDiv.addEventListener('click', function (event) {
-        event.stopPropagation();
-      }, true);
+      thisDiv.removeEventListener("click", function() {
+        edit(this.id, project);
+      });
       thisDiv.classList.remove('itemDiv');
-      thisDiv.classList.remove(`${thisId.priority}Div`);
+      thisDiv.classList.remove(`${model.getTodo(thisId).priority}Div`);
       thisDiv.classList.add('formDiv');
+      divColor(thisDiv);
       document.getElementById(`delete_${thisId}`).style.display = 'none';
       document.getElementById(`title_${thisId}`).style.display = 'none';
     }
 
+    done.addEventListener("click", submit);
+    priority.addEventListener("change", function() { divColor(thisDiv); });
     thisDiv.appendChild(todoForm);
     thisDiv.style.display = 'block';
   };

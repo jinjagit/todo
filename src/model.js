@@ -136,6 +136,11 @@ const model = (() => {
     return errors;
   };
 
+  const editTodo = (formData, thisId) => {
+    let errors = ['unmoved']
+    return errors;
+  };
+
   const getTodo = (id) => {
     for (let i = 0; i < todos.length; i++) {
       if (todos[i].id == id) { return todos[i];}
@@ -164,8 +169,8 @@ const model = (() => {
   };
 
   return {
-    todos, projects, indexTodos, createTodo, getTodo, deleteTodo, createProject,
-    deleteProject, initialize, logTodos
+    todos, projects, indexTodos, createTodo, editTodo, getTodo, deleteTodo,
+    createProject, deleteProject, initialize, logTodos
   };
 
 })();

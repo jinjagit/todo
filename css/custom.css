@@ -292,35 +292,35 @@ select {
   padding-bottom: 3px;
 }
 
-#priorityLabel {
+.priorityLabel {
   float: left;
 }
 
-#projectLabel {
+.projectLabel {
   float: left;
   margin-left: 33px;
 }
 
-#priority {
+.priority {
   width: 70px;
   float: left;
   margin-top: -2px;
 }
 
-#projects {
+.projects {
   width: calc(100% - 150px);
   margin-left: 14px;
   float: left;
   margin-top: -2px;
 }
 
-#description {
+.description {
   width: calc(100% - 2px);
   height: 2em;
   resize: none;
 }
 
-#done {
+.done {
   float: right;
   margin: 5px -4px 0 0;
 }

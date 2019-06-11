@@ -35,6 +35,16 @@ const appRender = (() => {
       prevScrollpos = currentScrollPos;
     }
 
+    // disable return key to submit form
+    // from: https://stackoverflow.com/questions/5629805/disabling-enter-key-for-form
+    window.addEventListener('keydown',function(e) {
+      if (e.keyIdentifier=='U+000A'|| e.keyIdentifier=='Enter' || e.keyCode==13) {
+        if (e.target.nodeName=='INPUT' && e.target.type=='text') {
+          e.preventDefault();
+          return false;}
+        }
+      }, true);
+
     // set initial navBtn icon & add click event
     let navBtn = document.getElementById('navBtn');
     navBtn.classList.add('foldersIcon');

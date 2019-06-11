@@ -46,12 +46,17 @@ const model = (() => {
 
   const validateTodo = (data, editId = false) => {
     let errors = [];
+    let editTodo = null;
+
+    console.log(`data.title: ${data.title}, editId: ${editId}`);
+
+    if (editId != false) { editTodo = getTodo(editId); }
 
     if ((editId == false && (data.title == '' && data.description == '')) ||
-        (editId != false && todos[editId].title == data.title &&
-          todos[editId].description == data.description &&
-          todos[editId].priority == data.priority &&
-          todos[editId].project == data.project)) {
+        (editId != false && editTodo.title == data.title &&
+          editTodo.description == data.description &&
+          editTodo.priority == data.priority &&
+          editTodo.project == data.project)) {
       errors = ['nothing to save'];
     } else {
       if (data.title == '') { errors.push('title cannot be blank'); }
@@ -138,12 +143,13 @@ const model = (() => {
 
   const editTodo = (formData, thisId) => {
     let errors = validateTodo(formData, thisId);
-    if (errors.length == 0) {
+
+    if (errors.length == 0 || errors[0] == 'nothing to save') {
       let todo = getTodo(thisId);
-      if (todo.priority == formData.priority) {
-        errors = ['same priority'];
+      if (todo.priority == formData.priority || errors[0] == 'nothing to save') {
+        errors[0] = 'same priority';
         if (todo.title != formData.title) {
-          errors = ['same priority new title'];
+          errors[0] = 'same priority new title';
         }
       }
       todo.title = formData.title;
@@ -151,7 +157,8 @@ const model = (() => {
       todo.priority = formData.priority;
       todo.project = formData.project;
     }
-
+    console.log(errors[0]);
+    
     return errors;
   };
 

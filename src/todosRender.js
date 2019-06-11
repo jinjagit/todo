@@ -3,14 +3,13 @@ import { model } from './model'
 
 const todosRender = (() => {
   let content = document.getElementById('content');
-  let titleW = content.offsetWidth - 56;
 
   const index = (project) => {
     project = project.slice(8);
     let todos = model.indexTodos(project);
     renderUtils.clearContent();
 
-    titleW = content.offsetWidth - 56;
+    let titleW = content.offsetWidth - 56; // recalculate
     let formDiv = document.createElement('div');
     formDiv.classList.add('formDiv');
     formDiv.classList.add('mediumForm');
@@ -141,8 +140,6 @@ const todosRender = (() => {
         project: document.getElementById(`projects${thisId}`).value
       }
 
-      console.log(data); // DEBUG
-
       if ((thisProject == data.project || thisProject == 'All to-do items') ||
           confirm(`Really save to other project: ${data.project}?`) == true) {
         let errors = [];
@@ -164,7 +161,7 @@ const todosRender = (() => {
           document.getElementById(`title_${thisId}`).style.display = 'block';
           if (errors[0] == 'same priority new title') {
             document.getElementById(`title_${thisId}`).innerHTML =
-            renderUtils.fitString(model.getTodo(thisId).title, titleW);
+            renderUtils.fitString(model.getTodo(thisId).title, content.offsetWidth - 56);
           }
         } else if (errors.length == 0) {
           index(`project_${thisProject}`);

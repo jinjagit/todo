@@ -3,13 +3,14 @@ import { model } from './model'
 
 const todosRender = (() => {
   let content = document.getElementById('content');
+  let titleW = content.offsetWidth - 56;
 
   const index = (project) => {
     project = project.slice(8);
     let todos = model.indexTodos(project);
     renderUtils.clearContent();
 
-    let titleW = content.offsetWidth - 56;
+    titleW = content.offsetWidth - 56;
     let formDiv = document.createElement('div');
     formDiv.classList.add('formDiv');
     formDiv.classList.add('mediumForm');
@@ -162,7 +163,8 @@ const todosRender = (() => {
           document.getElementById(`delete_${thisId}`).style.display = 'block';
           document.getElementById(`title_${thisId}`).style.display = 'block';
           if (errors[0] == 'same priority new title') {
-            document.getElementById(`title_${thisId}`).innerHTML = model.getTodo(thisId).title;
+            document.getElementById(`title_${thisId}`).innerHTML =
+            renderUtils.fitString(model.getTodo(thisId).title, titleW);
           }
         } else if (errors.length == 0) {
           index(`project_${thisProject}`);

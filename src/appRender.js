@@ -35,7 +35,7 @@ const appRender = (() => {
       prevScrollpos = currentScrollPos;
     }
 
-    // disable return key to submit form
+    // disable; return key submits form
     // from: https://stackoverflow.com/questions/5629805/disabling-enter-key-for-form
     window.addEventListener('keydown',function(e) {
       if (e.keyIdentifier=='U+000A'|| e.keyIdentifier=='Enter' || e.keyCode==13) {

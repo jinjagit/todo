@@ -48,8 +48,6 @@ const model = (() => {
     let errors = [];
     let editTodo = null;
 
-    console.log(`data.title: ${data.title}, editId: ${editId}`);
-
     if (editId != false) { editTodo = getTodo(editId); }
 
     if ((editId == false && (data.title == '' && data.description == '')) ||
@@ -157,8 +155,7 @@ const model = (() => {
       todo.priority = formData.priority;
       todo.project = formData.project;
     }
-    console.log(errors[0]);
-    
+
     return errors;
   };
 

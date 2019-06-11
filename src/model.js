@@ -137,7 +137,21 @@ const model = (() => {
   };
 
   const editTodo = (formData, thisId) => {
-    let errors = ['unmoved']
+    let errors = validateTodo(formData, thisId);
+    if (errors.length == 0) {
+      let todo = getTodo(thisId);
+      if (todo.priority == formData.priority) {
+        errors = ['same priority'];
+        if (todo.title != formData.title) {
+          errors = ['same priority new title'];
+        }
+      }
+      todo.title = formData.title;
+      todo.description = formData.description;
+      todo.priority = formData.priority;
+      todo.project = formData.project;
+    }
+
     return errors;
   };
 

@@ -152,7 +152,8 @@ const todosRender = (() => {
           formDiv.removeChild(todoForm);
           formDiv.style.display = 'none';
           addNew.style.display = 'block';
-        } else if (errors[0] == 'unmoved') {
+        } else if (errors[0] == 'same priority' ||
+            errors[0] == 'same priority new title') {
           setTimeout(function(){ thisDiv.removeChild(todoForm); }, 10);
           thisDiv.classList.remove('formDiv');
           thisDiv.classList.remove(`${model.getTodo(thisId).priority}Form`);
@@ -160,6 +161,9 @@ const todosRender = (() => {
           thisDiv.classList.add(`${model.getTodo(thisId).priority}Div`);
           document.getElementById(`delete_${thisId}`).style.display = 'block';
           document.getElementById(`title_${thisId}`).style.display = 'block';
+          if (errors[0] == 'same priority new title') {
+            document.getElementById(`title_${thisId}`).innerHTML = model.getTodo(thisId).title;
+          }
         } else if (errors.length == 0) {
           index(`project_${thisProject}`);
         } else {

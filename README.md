@@ -15,7 +15,7 @@ Simon Tharby's [UNFINISHED] solution to [Project: Todo List](https://www.theodin
 
 ### Limitations
 
-  * No permanent data storage, though modular code-base means this could easily be added. Uses browser local storage; data will be reset to example data when browser cache cleared.
+  * No permanent data storage, though modular code-base means this could easily be added. Uses browser local storage; data will reset to default example data when browser cache cleared.
   * No data security: since this is a 100% JavaScript driven app, and all code runs in the browser (and none is server-side only), there is no way to prevent malicious deletion, addition or editing of data.
 
 ### Screenshots:

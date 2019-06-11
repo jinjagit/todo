@@ -1,24 +1,24 @@
-# todo
+# To-do
 
-basic todo list app - pure JavaScript - with separation of DOM manipulation from app logic
+A basic to-do list app - pure JavaScript - with separation of DOM manipulation from app logic, using modular file structure (bundled by Webpack).
 
 Simon Tharby's [UNFINISHED] solution to [Project: Todo List](https://www.theodinproject.com/courses/javascript/lessons/todo-list?ref=lnav), Organizing JavaScript Code section, Javascript unit, Odin Project.
 
-### features
+### Features
 
   * mobile-focused, intuitive design
   * to-do items color coded to show priority
   * view to-dos by project or view all to-dos from all projects
   * to-dos ordered by priority, and then by order of creation
   * data validation
-  * separation of app logic from DOM manipulation, using modular structure (bundled by Webpack)
+  * separation of app logic from DOM manipulation
 
-### limitations
+### Limitations
 
   * No permanent data storage, though modular code-base means this could easily be added. Uses browser local storage; data will be reset to example data when browser cache cleared.
   * No data security: since this is a 100% JavaScript driven app, and all code runs in the browser (and none is server-side only), there is no way to prevent malicious deletion, addition or editing of data.
 
-### screenshots:
+### Screenshots:
 
 ### Getting started:
 

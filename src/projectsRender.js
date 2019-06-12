@@ -8,7 +8,7 @@ const projectsRender = (() => {
 
   const index = () => {
     renderUtils.clearContent();
-    let projects = model.projects;
+    let projects = model.indexProjects();
     let navBtn = document.getElementById('navBtn');
     let titleW = content.offsetWidth - 56;
 

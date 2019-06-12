@@ -107,7 +107,7 @@ const todosRender = (() => {
 
     const addSelection = (type) => {
       let options = ['high', 'medium', 'low'];
-      if (type == 'project') { options = model.projects; }
+      if (type == 'project') { options = model.indexProjects(); }
       for (let i = 0; i < options.length; i++) {
         let option = document.createElement('option');
         option.value = options[i];
@@ -150,8 +150,9 @@ const todosRender = (() => {
           formDiv.removeChild(todoForm);
           formDiv.style.display = 'none';
           addNew.style.display = 'block';
-        } else if (errors[0] == 'same priority' ||
-            errors[0] == 'same priority new title') {
+        } else if ((errors[0] == 'same priority' ||
+            errors[0] == 'same priority new title') &&
+            (thisProject == data.project || thisProject == 'All to-do items')) {
           setTimeout(function(){ thisDiv.removeChild(todoForm); }, 10);
           thisDiv.classList.remove('formDiv');
           thisDiv.classList.remove(`${model.getTodo(thisId).priority}Form`);
@@ -163,7 +164,9 @@ const todosRender = (() => {
             document.getElementById(`title_${thisId}`).innerHTML =
             renderUtils.fitString(model.getTodo(thisId).title, content.offsetWidth - 56);
           }
-        } else if (errors.length == 0) {
+        } else if ((errors.length == 0) || ((errors[0] == 'same priority' ||
+            errors[0] == 'same priority new title') &&
+            (thisProject != data.project && thisProject != 'All to-do items'))) {
           index(`project_${thisProject}`);
         } else {
           let message = 'SAVE FAILED!';

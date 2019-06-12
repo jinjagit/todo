@@ -6,10 +6,11 @@ Simon Tharby's [UNFINISHED] solution to [Project: Todo List](https://www.theodin
 
 ### Features
 
-  * mobile-focused, intuitive design
+  * mobile-focused design, with clean and simple UI
   * to-do items color coded to show priority
+  * to-do items ordered by priority, and then by order of creation
   * view to-dos by project or view all to-dos from all projects
-  * to-dos ordered by priority, and then by order of creation
+  * click/tap a to-do item to view details/edit
   * data validation
   * separation of app logic from DOM manipulation
 

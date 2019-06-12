@@ -140,7 +140,8 @@ const todosRender = (() => {
         project: document.getElementById(`projects${thisId}`).value
       }
 
-      if ((thisProject == data.project || thisProject == 'All to-do items') ||
+      if ((thisProject == data.project ||
+          (thisId == 'addNew' && thisProject == 'All to-do items')) ||
           confirm(`Really save to other project: ${data.project}?`) == true) {
         let errors = [];
         if (thisId == 'addNew') { errors = model.createTodo(data); }

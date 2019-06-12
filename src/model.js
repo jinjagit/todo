@@ -1,20 +1,16 @@
 import { exampleData } from './exampleData'
 
 const model = (() => {
-
-  let todos = [];
-  let projects = [];
-
   const initialize = () => {
     localStore = storageAvailable('localStorage');
 
     // DEBUG reset
-    /*
+/*
     useExampleData();
     localStorage.clear();
     localStorage.setItem('todos', JSON.stringify(todos));
     localStorage.setItem('projects', JSON.stringify(projects));
-    */
+*/
 
     if (storageAvailable('localStorage')) {
       if(!localStorage.getItem('todos') || !localStorage.getItem('projects')) {
@@ -129,6 +125,8 @@ const model = (() => {
 
   // private
 
+  let todos = [];
+  let projects = [];
   let localStore = false;
 
   const uniqueId = (() => {
@@ -259,17 +257,9 @@ const model = (() => {
     }
   };
 
-  // DEBUG:
-  const logTodos = () => {
-    console.log('----------');
-    for (let i = 0; i < todos.length; i++) {
-      todos[i].output();
-    }
-  };
-
   return {
-    initialize, indexTodos, indexProjects, createTodo, editTodo, getTodo,
-    deleteTodo, createProject, deleteProject, logTodos
+    initialize, indexTodos, createTodo, editTodo, getTodo, deleteTodo,
+    indexProjects, createProject, deleteProject
   };
 
 })();

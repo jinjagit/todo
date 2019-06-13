@@ -111,6 +111,11 @@ const projectsRender = (() => {
 
     formDiv.appendChild(projectForm);
     content.appendChild(formDiv);
+
+    // scroll page to show whole form if form opens partly below window
+    let divH = 68;
+    let space = window.innerHeight - formDiv.getBoundingClientRect().top;
+    if (space < divH) { window.scrollTo(0, window.pageYOffset + (divH - space)); }
   };
 
   return { index };

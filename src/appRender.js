@@ -54,25 +54,7 @@ const appRender = (() => {
     todosRender.index('project_All to-do items');
   };
 
-  // DEBUG: create content taller than page to test scroll effects
-  const placeholderContent = () => {
-    let content = document.getElementById('content');
-
-    let spacer = document.createElement('div');
-    spacer.style.height = '30px';
-    content.appendChild(spacer);
-
-    for(let i = 0; i < 70; i++) {
-      const para = document.createElement('p');
-      para.innerHTML = "placeholder content";
-      para.style.textAlign = "center";
-      content.appendChild(para);
-    }
-
-    window.dispatchEvent(new Event('resize'));
-  };
-
-  return { initialize, placeholderContent };
+  return { initialize };
 
 })();
 

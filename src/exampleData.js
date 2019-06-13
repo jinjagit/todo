@@ -5,7 +5,7 @@ const exampleData = (() => {
       priority: 'high', project: 'regular stuff' },
     { title: 'wash car', description: '',
       priority: 'low', project: 'regular stuff' },
-    { title: 'buy beer', description: 'Kronenberg',
+    { title: 'buy coffee', description: 'whole beans',
       priority: 'medium', project: 'regular stuff' },
     { title: 'research arrow functions',
       description: 'make notes and save links',

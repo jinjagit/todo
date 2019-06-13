@@ -4,14 +4,6 @@ const model = (() => {
   const initialize = () => {
     localStore = storageAvailable('localStorage');
 
-    // DEBUG reset
-/*
-    useExampleData();
-    localStorage.clear();
-    localStorage.setItem('todos', JSON.stringify(todos));
-    localStorage.setItem('projects', JSON.stringify(projects));
-*/
-
     if (storageAvailable('localStorage')) {
       if(!localStorage.getItem('todos') || !localStorage.getItem('projects')) {
         useExampleData();
@@ -19,7 +11,7 @@ const model = (() => {
         localStorage.setItem('projects', JSON.stringify(projects));
       } else {
         projects = JSON.parse(localStorage.getItem('projects'));
-        todos = JSON.parse(localStorage.getItem('todos'));  
+        todos = JSON.parse(localStorage.getItem('todos'));
         if (todos === undefined || projects === undefined) {
           useExampleData();
         } else {

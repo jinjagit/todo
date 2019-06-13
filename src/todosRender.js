@@ -139,9 +139,10 @@ const todosRender = (() => {
         priority: document.getElementById(`priority${thisId}`).value,
         project: document.getElementById(`projects${thisId}`).value
       }
+      let todo = model.getTodo(thisId);
 
       if ((thisId == 'addNew' && thisProject == 'All to-do items') ||
-          model.getTodo(thisId).project == data.project ||
+          todo.project == data.project ||
           confirm(`Really save to other project: ${data.project}?`) == true) {
         let errors = [];
         if (thisId == 'addNew') { errors = model.createTodo(data); }
@@ -156,14 +157,14 @@ const todosRender = (() => {
             (thisProject == data.project || thisProject == 'All to-do items')) {
           setTimeout(function(){ thisDiv.removeChild(todoForm); }, 10);
           thisDiv.classList.remove('formDiv');
-          thisDiv.classList.remove(`${model.getTodo(thisId).priority}Form`);
+          thisDiv.classList.remove(`${todo.priority}Form`);
           thisDiv.classList.add('itemDiv');
-          thisDiv.classList.add(`${model.getTodo(thisId).priority}Div`);
+          thisDiv.classList.add(`${todo.priority}Div`);
           document.getElementById(`delete_${thisId}`).style.display = 'block';
           document.getElementById(`title_${thisId}`).style.display = 'block';
           if (errors[0] == 'same priority new title') {
             document.getElementById(`title_${thisId}`).innerHTML =
-            renderUtils.fitString(model.getTodo(thisId).title, content.offsetWidth - 56);
+            renderUtils.fitString(todo.title, content.offsetWidth - 56);
           }
         } else if ((errors.length == 0) || ((errors[0] == 'same priority' ||
             errors[0] == 'same priority new title') &&
@@ -233,6 +234,11 @@ const todosRender = (() => {
     priority.addEventListener("change", function() { divColor(thisDiv); });
     thisDiv.appendChild(todoForm);
     thisDiv.style.display = 'block';
+
+    // scroll page to show whole form if form opens partly below window
+    let divH = 143;
+    let space = window.innerHeight - thisDiv.getBoundingClientRect().top;
+    if (space < divH) { window.scrollTo(0, window.pageYOffset + (divH - space)); }
   };
 
   return { index };

@@ -19,10 +19,11 @@ const model = (() => {
         localStorage.setItem('projects', JSON.stringify(projects));
       } else {
         projects = JSON.parse(localStorage.getItem('projects'));
-        todos = JSON.parse(localStorage.getItem('todos'));
-        for (let i = 0; i < todos.length; i++) { todos[i].id = uniqueId(); }
+        todos = JSON.parse(localStorage.getItem('todos'));  
         if (todos === undefined || projects === undefined) {
           useExampleData();
+        } else {
+          for (let i = 0; i < todos.length; i++) { todos[i].id = uniqueId(); }
         }
       }
     } else {

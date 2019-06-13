@@ -53,19 +53,22 @@ const projectsRender = (() => {
     navMsg.innerHTML = 'Projects';
 
     // onResize: reformat text that would otherwise overflow
-    document.body.onresize = function(){
-      let titles = document.getElementsByClassName('title');
-      for (let i = 0; i < titles.length; i++) {
-        titles[i].innerHTML = renderUtils.fitString(
-          projects[i], content.offsetWidth - 56
-        );
-      }
-    };
+    document.body.onresize = function(){ onResize(); };
   };
 
   // private
 
   let content = document.getElementById('content');
+
+  const onResize = () => {
+    let projects = model.indexProjects();
+    let titles = document.getElementsByClassName('title');
+    for (let i = 0; i < titles.length; i++) {
+      titles[i].innerHTML = renderUtils.fitString(
+        projects[i], content.offsetWidth - 56
+      );
+    }
+  };
 
   const removeProject = (thisId) => {
     let id = thisId.slice(7);
@@ -115,7 +118,12 @@ const projectsRender = (() => {
     // scroll page to show whole form if form opens partly below window
     let divH = 68;
     let space = window.innerHeight - formDiv.getBoundingClientRect().top;
-    if (space < divH) { window.scrollTo(0, window.pageYOffset + (divH - space)); }
+    if (space < divH) {
+      window.scrollTo(0, window.pageYOffset + (divH - space));
+      window.dispatchEvent(new Event('resize'));
+    }
+
+    onResize();
   };
 
   return { index };

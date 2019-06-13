@@ -63,22 +63,25 @@ const todosRender = (() => {
     );
 
     // onResize: reformat text that would otherwise overflow
-    document.body.onresize = function(){
-      navMsg.innerHTML = renderUtils.fitString(
-        project, document.getElementById('msgDiv').offsetWidth - 12
-      );
-      let titles = document.getElementsByClassName('title');
-      for (let i = 0; i < titles.length; i++) {
-        titles[i].innerHTML = renderUtils.fitString(
-          todos[i].title, content.offsetWidth - 56
-        );
-      }
-    };
+    document.body.onresize = function(){ onResize(project); };
   };
 
   // private:
 
   let content = document.getElementById('content');
+
+  const onResize = (project) => {
+    document.getElementById('navMsg').innerHTML = renderUtils.fitString(
+      project, document.getElementById('msgDiv').offsetWidth - 12
+    );
+    let todos = model.indexTodos(project);
+    let titles = document.getElementsByClassName('title');
+    for (let i = 0; i < titles.length; i++) {
+      titles[i].innerHTML = renderUtils.fitString(
+        todos[i].title, content.offsetWidth - 56
+      );
+    }
+  };
 
   const removeTodo = (thisId) => {
     let checkBox = document.getElementById(thisId);
@@ -170,6 +173,7 @@ const todosRender = (() => {
         } else if ((errors.length == 0) || ((errors[0] == 'same priority' ||
             errors[0] == 'same priority new title') &&
             (thisProject != data.project && thisProject != 'All to-do items'))) {
+              console.log(`remove div: ${thisDiv}`);
           index(`project_${thisProject}`);
         } else {
           let message = 'SAVE FAILED!';
@@ -239,7 +243,11 @@ const todosRender = (() => {
     // scroll page to show whole form if form opens partly below window
     let divH = 143;
     let space = window.innerHeight - thisDiv.getBoundingClientRect().top;
-    if (space < divH) { window.scrollTo(0, window.pageYOffset + (divH - space)); }
+    if (space < divH) {
+      window.scrollTo(0, window.pageYOffset + (divH - space));
+    }
+
+    onResize(thisProject);
   };
 
   return { index };

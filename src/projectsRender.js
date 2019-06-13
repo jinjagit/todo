@@ -3,9 +3,6 @@ import { model } from './model'
 import { todosRender } from './todosRender'
 
 const projectsRender = (() => {
-
-  let content = document.getElementById('content');
-
   const index = () => {
     renderUtils.clearContent();
     let projects = model.indexProjects();
@@ -66,6 +63,8 @@ const projectsRender = (() => {
   };
 
   // private
+
+  let content = document.getElementById('content');
 
   const removeProject = (thisId) => {
     let id = thisId.slice(7);

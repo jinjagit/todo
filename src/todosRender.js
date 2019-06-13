@@ -2,8 +2,6 @@ import { renderUtils } from './renderUtils'
 import { model } from './model'
 
 const todosRender = (() => {
-  let content = document.getElementById('content');
-
   const index = (project) => {
     project = project.slice(8);
     let todos = model.indexTodos(project);
@@ -78,6 +76,8 @@ const todosRender = (() => {
   };
 
   // private:
+
+  let content = document.getElementById('content');
 
   const removeTodo = (thisId) => {
     let checkBox = document.getElementById(thisId);

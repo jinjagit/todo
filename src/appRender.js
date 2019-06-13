@@ -2,21 +2,6 @@ import { projectsRender } from './projectsRender'
 import { todosRender } from './todosRender'
 
 const appRender = (() => {
-
-  const navBtnClick = () => {
-    if (navBtn.classList.value == 'foldersIcon') {
-      navBtn.classList.remove('foldersIcon');
-      navBtn.classList.add('eyeIcon');
-      navBtn.title = 'view all todo items from all projects';
-      projectsRender.index();
-    } else {
-      navBtn.classList.remove('eyeIcon');
-      navBtn.classList.add('foldersIcon');
-      navBtn.title = 'view projects';
-      todosRender.index('project_All to-do items');
-    }
-  };
-
   const initialize = () => {
     let navbar = document.getElementById('navbar');
     let content = document.getElementById('content');
@@ -52,6 +37,22 @@ const appRender = (() => {
     navBtn.addEventListener("click", navBtnClick);
 
     todosRender.index('project_All to-do items');
+  };
+
+  // private
+
+  const navBtnClick = () => {
+    if (navBtn.classList.value == 'foldersIcon') {
+      navBtn.classList.remove('foldersIcon');
+      navBtn.classList.add('eyeIcon');
+      navBtn.title = 'view all todo items from all projects';
+      projectsRender.index();
+    } else {
+      navBtn.classList.remove('eyeIcon');
+      navBtn.classList.add('foldersIcon');
+      navBtn.title = 'view projects';
+      todosRender.index('project_All to-do items');
+    }
   };
 
   return { initialize };

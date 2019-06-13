@@ -42,6 +42,7 @@ const todosRender = (() => {
       content.appendChild(div);
     }
 
+    // add 'new todo item' button
     let addNew = document.createElement('div');
     addNew.id = 'addNew';
     addNew.addEventListener("click", function() {

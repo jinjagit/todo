@@ -9,7 +9,7 @@ const projectsRender = (() => {
     let navBtn = document.getElementById('navBtn');
     let titleW = content.offsetWidth - 56;
 
-    for(let i = 0; i < projects.length; i++) {
+    for(let i = 0; i < projects.length; i++) { // add project divs
       let div = document.createElement('div');
       div.classList.add('itemDiv');
       div.id = `project_${projects[i]}`;
@@ -35,6 +35,7 @@ const projectsRender = (() => {
       div.appendChild(title);
     }
 
+    // add 'new project' button
     let addNew = document.createElement('div');
     addNew.id = 'addNew';
     addNew.addEventListener("click", function() {

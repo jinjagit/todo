@@ -7,7 +7,7 @@ const todosRender = (() => {
     let todos = model.indexTodos(project);
     renderUtils.clearContent();
 
-    let titleW = content.offsetWidth - 56; // recalculate
+    let titleW = content.offsetWidth - 56;
     let formDiv = document.createElement('div');
     formDiv.classList.add('formDiv');
     formDiv.classList.add('mediumForm');
@@ -137,28 +137,41 @@ const todosRender = (() => {
     };
 
     const submit = () => {
+      const alertErrors = (errors) => {
+        let message = 'SAVE FAILED!';
+        for (let i = 0; i < errors.length; i ++) { message += `\n* ${errors[i]}`; }
+        alert(message);
+      };
+
       let data = {
         title: document.getElementById(`title${thisId}`).value,
         description: document.getElementById(`description${thisId}`).value,
         priority: document.getElementById(`priority${thisId}`).value,
         project: document.getElementById(`projects${thisId}`).value
       }
-      let todo = model.getTodo(thisId);
+      let result = [];
 
-      if ((thisId == 'addNew' && thisProject == 'All to-do items') ||
-          todo.project == data.project ||
-          confirm(`Really save to other project: ${data.project}?`) == true) {
-        let errors = [];
-        if (thisId == 'addNew') { errors = model.createTodo(data); }
-        else { errors = model.editTodo(data, thisId); }
+      if (thisId == 'addNew') { // submit new
+        result = model.createTodo(data, thisProject);
 
-        if (errors[0] == 'nothing to save') {
+        if (result.length == 0) { index(`project_${thisProject}`); }
+        else if (result[0] == 'nothing to save' || result[0] == 'moved project') {
           formDiv.removeChild(todoForm);
           formDiv.style.display = 'none';
-          addNew.style.display = 'block';
-        } else if ((errors[0] == 'same priority' ||
-            errors[0] == 'same priority new title') &&
-            (thisProject == data.project || thisProject == 'All to-do items')) {
+          addNew.style.display = 'block'; }
+        else { alertErrors(result); }
+      } else { // submit edit
+        result = model.editTodo(data, thisId);
+        let todo = model.getTodo(thisId);
+
+        if (result.length == 0) { index(`project_${thisProject}`); }
+        else if (thisProject != 'All to-do items' &&
+                  (result[0] == 'moved project' ||
+                    result[1] == 'moved project')) {
+          let todoDiv = document.getElementById(thisId);
+          todoDiv.parentNode.removeChild(todoDiv);
+        } else if (result[0] == 'same priority new title' ||
+                  result[0] == 'same priority') {
           setTimeout(function(){ thisDiv.removeChild(todoForm); }, 10);
           thisDiv.classList.remove('formDiv');
           thisDiv.classList.remove(`${todo.priority}Form`);
@@ -166,22 +179,11 @@ const todosRender = (() => {
           thisDiv.classList.add(`${todo.priority}Div`);
           document.getElementById(`delete_${thisId}`).style.display = 'block';
           document.getElementById(`title_${thisId}`).style.display = 'block';
-          if (errors[0] == 'same priority new title') {
+          if (result[0] == 'same priority new title') {
             document.getElementById(`title_${thisId}`).innerHTML =
             renderUtils.fitString(todo.title, content.offsetWidth - 56);
           }
-        } else if ((errors.length == 0) || ((errors[0] == 'same priority' ||
-            errors[0] == 'same priority new title') &&
-            (thisProject != data.project && thisProject != 'All to-do items'))) {
-              console.log(`remove div: ${thisDiv}`);
-          index(`project_${thisProject}`);
-        } else {
-          let message = 'SAVE FAILED!';
-          for (let i = 0; i < errors.length; i ++) {
-            message += `\n* ${errors[i]}`;
-          }
-          alert(message);
-        }
+        } else { alertErrors(result); }
       }
     };
 
@@ -224,9 +226,7 @@ const todosRender = (() => {
     let thisDiv = document.getElementById('formDiv');
     if (thisId != 'addNew') { // insert 'edit' form at todo item position
       thisDiv = document.getElementById(thisId);
-      thisDiv.removeEventListener("click", function() {
-        edit(this.id, project);
-      });
+      thisDiv.removeEventListener("click", function() { edit(this.id, project); });
       thisDiv.classList.remove('itemDiv');
       thisDiv.classList.remove(`${model.getTodo(thisId).priority}Div`);
       thisDiv.classList.add('formDiv');
@@ -243,9 +243,7 @@ const todosRender = (() => {
     // scroll page to show whole form if form opens partly below window
     let divH = 143;
     let space = window.innerHeight - thisDiv.getBoundingClientRect().top;
-    if (space < divH) {
-      window.scrollTo(0, window.pageYOffset + (divH - space));
-    }
+    if (space < divH) { window.scrollTo(0, window.pageYOffset + (divH - space)); }
 
     onResize(thisProject);
   };

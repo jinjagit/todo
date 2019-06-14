@@ -47,38 +47,47 @@ const model = (() => {
     }
   };
 
-  const createTodo = (formData) => {
-    let errors = validateTodo(formData);
-    if (errors.length == 0) {
-      todos.push(
-        todoFactory(uniqueId(), formData.title, formData.description,
-        formData.priority, formData.project
-      ));
-      saveTodosLocal();
+  const createTodo = (formData, project) => {
+    let result = validateTodo(formData);
+    if (result.length == 0) {
+      if (project == 'All to-do items' ||
+      confirm(`Really save to other project: ${formData.project}?`) == true) {
+        if (project != 'All to-do items' && project != formData.project) {
+          result.push('moved project');
+        }
+        todos.push(
+          todoFactory(uniqueId(), formData.title, formData.description,
+          formData.priority, formData.project
+        ));
+        saveTodosLocal();
+      }
     }
 
-    return errors;
+    return result;
   };
 
   const editTodo = (formData, thisId) => {
-    let errors = validateTodo(formData, thisId);
+    let result = validateTodo(formData, thisId);
 
-    if (errors.length == 0 || errors[0] == 'nothing to save') {
+    if (result[0] == 'nothing to save') { result[0] = 'same priority'; }
+    else if (result.length == 0) { // save edit
       let todo = getTodo(thisId);
-      if (todo.priority == formData.priority || errors[0] == 'nothing to save') {
-        errors[0] = 'same priority';
-        if (todo.title != formData.title) {
-          errors[0] = 'same priority new title';
-        }
+      if (todo.priority == formData.priority) {
+        if (todo.title != formData.title) { result[0] = 'same priority new title'; }
+        else { result[0] = 'same priority'; }
       }
-      todo.title = formData.title;
-      todo.description = formData.description;
-      todo.priority = formData.priority;
-      todo.project = formData.project;
-      saveTodosLocal();
+      if (todo.project == formData.project ||
+      confirm(`Really save to other project: ${formData.project}?`) == true) {
+        if (todo.project != formData.project) { result.push('moved project'); }
+        todo.title = formData.title;
+        todo.description = formData.description;
+        todo.priority = formData.priority;
+        todo.project = formData.project;
+        saveTodosLocal();
+      }
     }
 
-    return errors;
+    return result;
   };
 
   const getTodo = (id) => {
@@ -131,9 +140,6 @@ const model = (() => {
   })();
 
   const todoFactory = (id, title, description, priority, project) => {
-
-    const output = () => console.log(`id: ${id}, title: ${title}, desc: ${description}, priority: ${priority}, project: ${project}`);
-
     const setTitle = newTitle => title = newTitle;
     const setDescription = newDescription => description = newDescription;
     const setPriority = newPriority => priority = newPriority;
@@ -141,7 +147,7 @@ const model = (() => {
 
     return {
       id, title, description, priority, project, setTitle, setDescription,
-      setPriority, setProject, output
+      setPriority, setProject
     };
   };
 
@@ -161,7 +167,7 @@ const model = (() => {
       if (data.title == '') { errors.push('title cannot be blank'); }
       else if (data.title.length > 64) {
         errors.push('title cannot contain more than 64 characters');
-      } else if (editId == false) {
+      } else {
         let projectTodos = indexTodos(data.project);
         for (let i = 0; i < projectTodos.length; i++) {
           if (projectTodos[i].title.toLowerCase() == data.title.toLowerCase()) {

@@ -110,8 +110,9 @@ const todosRender = (() => {
     };
 
     const addSelection = (type) => {
-      let options = ['high', 'medium', 'low'];
-      if (type == 'project') { options = model.indexProjects(); }
+      let options = type == 'project' ? options = model.indexProjects() :
+        ['high', 'medium', 'low'];
+
       for (let i = 0; i < options.length; i++) {
         let option = document.createElement('option');
         option.value = options[i];

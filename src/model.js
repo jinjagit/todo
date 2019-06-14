@@ -170,7 +170,8 @@ const model = (() => {
       } else {
         let projectTodos = indexTodos(data.project);
         for (let i = 0; i < projectTodos.length; i++) {
-          if (projectTodos[i].title.toLowerCase() == data.title.toLowerCase()) {
+          if (projectTodos[i].title.toLowerCase() == data.title.toLowerCase()
+              && (editId == false || projectTodos[i].id != editId)) {
             errors.push(
               'title cannot match existing todo item title in same project'
             );

@@ -4,7 +4,7 @@ A basic to-do list app - pure JavaScript - with separation of DOM manipulation f
 
 Simon Tharby's solution to [Project: Todo List](https://www.theodinproject.com/courses/javascript/lessons/todo-list?ref=lnav), Organizing JavaScript Code section, Javascript unit, Odin Project.
 
-[view in browser](https://jinjagit.github.io/todo/)
+[view in browser](https://to-do.simontharby.com/)
 
 ## Features
 

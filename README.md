@@ -2,7 +2,9 @@
 
 A basic to-do list app - pure JavaScript - with separation of DOM manipulation from app logic, using modular file structure (bundled by Webpack).
 
-Simon Tharby's [UNFINISHED] solution to [Project: Todo List](https://www.theodinproject.com/courses/javascript/lessons/todo-list?ref=lnav), Organizing JavaScript Code section, Javascript unit, Odin Project.
+Simon Tharby's solution to [Project: Todo List](https://www.theodinproject.com/courses/javascript/lessons/todo-list?ref=lnav), Organizing JavaScript Code section, Javascript unit, Odin Project.
+
+[view in browser](https://jinjagit.github.io/todo/)
 
 ### Features
 
@@ -26,6 +28,10 @@ All todo-items: The default view at app start / reload. Lists all todo items fro
 ![screenshots-A.png](dist/img/screenshots-A.png)
 
 Note: multiple items can be expanded, but all expanded views will be closed if an item is saved with a changed priorty, or if a new item is added, to the currently viewed project (or the 'All to-do items view').
+
+### Modular structure
+
+
 
 ### Getting started
 

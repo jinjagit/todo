@@ -21,6 +21,12 @@ Simon Tharby's [UNFINISHED] solution to [Project: Todo List](https://www.theodin
 
 ### Screenshots
 
+All todo-items: The default view at app start / reload. Lists all todo items from all projects, ordered by priority (and then by order of creation).
+
+![screenshots-A.png](dist/img/screenshots-A.png)
+
+Note: multiple items can be expanded, but all expanded views will be closed if an item is saved with a changed priorty, or if a new item is added, to the currently viewed project (or the 'All to-do items view').
+
 ### Getting started
 
 To get started with the app, clone / download the repo and open 'dist/index.html' in a browser.

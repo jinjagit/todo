@@ -41,7 +41,7 @@ Note: deleting a project will also delete any to-do items it contains (user conf
 
 ## Modular structure
 
-Separate modules, each within a separate file, were used to organize code by functionality, with especial emphasis on maximum separation of application logic from DOM manipulation. Care was taken to avoid any [circular dependency](https://stackoverflow.com/questions/46589957/es6-modules-and-circular-dependency) (a.k.a. 'cyclic dependency'):
+Separate modules, each within a separate file, were used to organize code by functionality, with particular emphasis on maximum separation of application logic from DOM manipulation. Care was taken to avoid any [circular dependency](https://stackoverflow.com/questions/46589957/es6-modules-and-circular-dependency) (a.k.a. 'cyclic dependency'):
 
 ![modular.jpg](dist/img/modular.jpg)
 

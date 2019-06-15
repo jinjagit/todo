@@ -153,7 +153,7 @@ const model = (() => {
 
   const validateTodo = (data, editId = false) => {
     let errors = [];
-    let editTodo = editId == false ? null : editTodo = getTodo(editId);
+    let editTodo = editId == false ? null : getTodo(editId);
 
     if ((editId == false && (data.title == '' && data.description == '')) ||
         (editId != false && editTodo.title == data.title &&

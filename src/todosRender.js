@@ -110,7 +110,7 @@ const todosRender = (() => {
     };
 
     const addSelection = (type) => {
-      let options = type == 'project' ? options = model.indexProjects() :
+      let options = type == 'project' ? model.indexProjects() :
         ['high', 'medium', 'low'];
 
       for (let i = 0; i < options.length; i++) {

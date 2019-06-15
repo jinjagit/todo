@@ -6,7 +6,7 @@ Simon Tharby's solution to [Project: Todo List](https://www.theodinproject.com/c
 
 [view in browser](https://jinjagit.github.io/todo/)
 
-### Features
+## Features
 
   * mobile-focused design, with clean and simple UI
   * to-do items color coded to show priority
@@ -16,24 +16,34 @@ Simon Tharby's solution to [Project: Todo List](https://www.theodinproject.com/c
   * data validation
   * separation of app logic from DOM manipulation
 
-### Limitations
+## Limitations
 
   * No permanent data storage, though modular code-base means this could easily be added. Uses browser local storage; data will reset to default example data if local storage unavailable / cleared.
   * No data security: since this is a 100% JavaScript driven app, and all code runs in the browser (and none is server-side only), there is no way to prevent malicious deletion, addition or editing of data.
 
-### Screenshots
+## Screenshots
 
-All todo-items: The default view at app start / reload. Lists all todo items from all projects, ordered by priority (and then by order of creation).
+### All todo-items:
+
+The default view at app start / reload. Lists all todo items from all projects, ordered by priority (and then by order of creation).
 
 ![screenshots-A.png](dist/img/screenshots-A.png)
 
 Note: multiple items can be expanded, but all expanded views will be closed if an item is saved with a changed priorty, or if a new item is added, to the currently viewed project (or the 'All to-do items view').
 
-### Modular structure
+### Projects:
+
+The projects view: click / tap on a project to open a list of all to-do items in that project, or click / tap the 'eye' icon on the navbar to open the 'All to-do items' view:
+
+![screenshots-B.png](dist/img/screenshots-B.png)
+
+Note: deleting a project will also delete any to-do items it contains (user confirmation required).
+
+## Modular structure
 
 
 
-### Getting started
+## Getting started
 
 To get started with the app, clone / download the repo and open 'dist/index.html' in a browser.
 

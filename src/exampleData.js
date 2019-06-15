@@ -3,8 +3,6 @@ const exampleData = (() => {
   let todos = [
     { title: 'do laundry', description: 'remember jeans',
       priority: 'high', project: 'regular stuff' },
-    { title: 'wash car', description: '',
-      priority: 'low', project: 'regular stuff' },
     { title: 'buy coffee', description: 'whole beans',
       priority: 'medium', project: 'regular stuff' },
     { title: 'research arrow functions',
@@ -18,15 +16,19 @@ const exampleData = (() => {
     { title: 'research IIFEs',
       description: 'what are they, and when are they used?',
       priority: 'medium', project: 'write article' },
-    { title: 'todo with example really long title',
-      description: 'for testing long strings', priority: 'medium',
-      project: 'project with really long title' }
+    { title: 'investigate engine idle issue',
+      description: 'engine idles unevenly and stalls when cold',
+      priority: 'medium', project: 'car' },
+    { title: 'buy new tyres',
+      description: 'front tyres have low tread on outside edges',
+      priority: 'medium', project: 'car' },
+    { title: 'wash car', description: '', priority: 'low', project: 'car' }
   ];
 
   let projects = [
     'regular stuff',
     'write article',
-    'project with really long title'
+    'car'
   ];
 
   return {todos, projects}

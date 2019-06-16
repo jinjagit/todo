@@ -25,11 +25,11 @@ Simon Tharby's solution to [Project: Todo List](https://www.theodinproject.com/c
 
 ### All todo-items:
 
-The default view at app start / reload. Lists all todo items from all projects, ordered by priority (and then by order of creation).
+The default view at app start / reload. Lists all to-do items from all projects, ordered by priority (and then by order of creation).
 
 ![screenshots-A.png](dist/img/screenshots-A.png)
 
-Note: multiple items can be expanded, but all expanded views will be closed if an item is saved with a changed priorty, or if a new item is added, to the currently viewed project (or the 'All to-do items view').
+Note: multiple items can be expanded, but all expanded items will be collapsed if any item is saved with a changed priorty, or if a new item is added, to the currently viewed project (or the 'All to-do items view').
 
 ### Projects:
 
